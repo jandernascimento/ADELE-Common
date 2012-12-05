@@ -33,7 +33,7 @@
 
         <!-- dependencies -->
         <iPojoVersion>1.8.2</iPojoVersion>
-        <ciliaVersion>1.5.3</ciliaVersion>
+        <ciliaVersion>1.6.0</ciliaVersion>
         <roseVersion>1.0.2</roseVersion>
         <atmosgiVersion>0.1.0-SNAPSHOT</atmosgiVersion>
 		
@@ -132,6 +132,20 @@
 			<url>http://repository-barjo.forge.cloudbees.com/snapshot/</url>
 			<layout>default</layout>
 		</repository>
+
+        <!-- Cilia mediation framework repository -->
+        <repository>
+            <id>maven-cilia-repository-release</id>
+            <name>Cilia - Release</name>
+            <url>http://repository-cilia.forge.cloudbees.com/release/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>maven-cilia-repository-snapshot</id>
+            <name>Cilia - Snapshot</name>
+            <url>http://repository-cilia.forge.cloudbees.com/snapshot/</url>
+            <layout>default</layout>
+        </repository>
 	</repositories>
 	
 	<pluginRepositories>
@@ -336,6 +350,12 @@
                 <artifactId>json-configurator</artifactId>
                 <version>${roseVersion}</version>
             </dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.m2mappbuilder</groupId>
+                <artifactId>rose.dp</artifactId>
+                <version>${roseVersion}</version>
+                <type>deployment-package</type>
+            </dependency>
 			<dependency>
 				<groupId>org.barjo.atmosgi</groupId>
 				<artifactId>atmosgi-component</artifactId>
@@ -390,6 +410,29 @@
 				<artifactId>json</artifactId>
 				<version>20090211</version>
 			</dependency>
+
+            <!-- CILIA -->
+            <dependency>
+                <groupId>fr.liglab.adele.cilia</groupId>
+                <artifactId>cilia-core</artifactId>
+                <version>${ciliaVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.cilia</groupId>
+                <artifactId>cilia-runtime</artifactId>
+                <version>${ciliaVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.cilia</groupId>
+                <artifactId>cilia-remote</artifactId>
+                <version>${ciliaVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.m2mappbuilder</groupId>
+                <artifactId>cilia.dp</artifactId>
+                <version>${ciliaVersion}</version>
+                <type>deployment-package</type>
+            </dependency>
 
 		</dependencies>
 	</dependencyManagement>
