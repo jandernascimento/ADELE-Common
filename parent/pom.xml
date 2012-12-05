@@ -34,7 +34,7 @@
         <!-- dependencies -->
         <iPojoVersion>1.8.2</iPojoVersion>
         <ciliaVersion>1.5.3</ciliaVersion>
-        <roseVersion>1.0.1-SNAPSHOT</roseVersion>
+        <roseVersion>1.0.2</roseVersion>
         <atmosgiVersion>0.1.0-SNAPSHOT</atmosgiVersion>
 		
 		<!-- By default, all sources are UTF-8-encoded. -->
