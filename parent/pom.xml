@@ -482,7 +482,7 @@
 				<plugin>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>maven-ipojo-plugin</artifactId>
-					<version>1.8.4</version>
+					<version>1.8.6</version>
 					<!-- Attach the iPOJO bundle manipulation to the project lifecycle. -->
 					<executions>
 						<execution>
