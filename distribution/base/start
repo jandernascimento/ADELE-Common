@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+cd /Users/thomas/workspaces/M2MAppBuilder/distribution/base/target/distrib-temp
+exec java -jar bin/felix.jar

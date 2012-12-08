@@ -1,0 +1,46 @@
+<assembly>
+    <id>distribution</id>
+    <baseDirectory>${distribProductName}</baseDirectory>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+		<fileSet>
+			<directory>${tempDistribDirectory}</directory>
+			<outputDirectory>.</outputDirectory>
+			<includes>
+                <include>bin/*</include>
+				<include>bundle/*</include>
+				<include>conf/*</include>
+				<include>load/</include>
+				<include>load/*</include>
+				<include>WEB-INF/*</include>
+				<include>README.txt</include>
+                <include>lib/*</include>
+			</includes>
+			<excludes>
+				<exclude>pom.xml</exclude>
+				<exclude>.settings/*</exclude>
+				<exclude>.project</exclude>
+				<exclude>.classpath</exclude>
+				<exclude>assembly.xml</exclude>
+				<exclude>save-conf-files/*</exclude>
+				<exclude>target/*</exclude>
+			</excludes>
+		</fileSet>
+        <fileSet>
+            <directory>${tempDistribDirectory}</directory>
+            <outputDirectory>.</outputDirectory>
+            <fileMode>0777</fileMode>
+            <includes>
+                <include>startIHM</include>
+                <include>startIHM.bat</include>
+                <include>PRODUCT</include>
+                <include>PRODUCT.bat</include>
+                <include>PRODUCTDebug</include>
+                <include>PRODUCTDebug.bat</include>
+            </includes>
+        </fileSet>
+	</fileSets>
+</assembly>

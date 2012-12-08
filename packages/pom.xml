@@ -19,20 +19,18 @@
 		<groupId>fr.liglab.adele.common</groupId>
 		<artifactId>parent</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>parent</relativePath>
+		<relativePath>../parent</relativePath>
 	</parent>
 
 	<!-- Project Descrkiption -->
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>root</artifactId>
+	<artifactId>packages</artifactId>
 	<packaging>pom</packaging>
 	<name>${productName} :: ${projectName}</name>
 
 	<modules>
-		<module>parent</module>
-        <module>deployment-package-extensions</module>
-        <module>packages</module>
-        <module>distribution</module>
+		<module>cilia-dp</module>
+		<module>rose-dp</module>
 	</modules>
 
 </project>
