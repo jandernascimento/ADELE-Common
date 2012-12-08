@@ -40,7 +40,7 @@
       <distribProductName>${project.artifactId}</distribProductName>
 
       <!-- inherited distribution definition -->
-      <inheritedDistribGroupId>fr.liglab.adele.m2mappbuilder</inheritedDistribGroupId>
+      <inheritedDistribGroupId>${project.groupId}</inheritedDistribGroupId>
       <inheritedDistribArtifactId>distribution.config.base</inheritedDistribArtifactId>
       <inheritedDistribVersion>${project.version}</inheritedDistribVersion>
 
@@ -240,12 +240,12 @@
 					<version>1.0.1-SNAPSHOT</version>
 				</artifactItem>
 				<artifactItem>
-					<groupId>fr.liglab.adele.m2mappbuilder</groupId>
+					<groupId>fr.liglab.adele.common</groupId>
 					<artifactId>deployment.package.file.install</artifactId>
 					<version>${productVersion}</version>
 				</artifactItem>
 				<artifactItem>
-					<groupId>fr.liglab.adele.m2mappbuilder</groupId>
+					<groupId>fr.liglab.adele.common</groupId>
 					<artifactId>autoload.res.processor</artifactId>
 					<version>${productVersion}</version>
 				</artifactItem>
