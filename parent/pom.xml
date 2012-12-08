@@ -30,9 +30,10 @@
 		<projectName>${project.artifactId}</projectName>
 
 		<!-- ADELE Projects -->
-		<ciliaVersion>1.6.0</ciliaVersion>
+        <adeleCommonVersion>1.0.0-SNAPSHOT</adeleCommonVersion>
+        <ciliaVersion>1.6.0</ciliaVersion>
 		<roseVersion>1.0.2</roseVersion>
-		<iCasaVersion>${productVersion}</iCasaVersion>
+		<iCasaVersion>0.0.1-SNAPSHOT</iCasaVersion>
 
 		<!-- Common dependencies -->
 		<!-- iPOJO -->
@@ -121,7 +122,7 @@
 			<name>iCASA Snapshot repository</name>
 			<url>https://repository-icasa.forge.cloudbees.com/snapshot/</url>
 			<releases>
-				<enabled>false</enabled>
+				<enabled>true</enabled>
 			</releases>
 			<snapshots>
 				<enabled>true</enabled>
@@ -410,7 +411,13 @@
 			</dependency>
 
 			<!-- iCasa -->
-			<dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.icasa</groupId>
+                <artifactId>icasa.core.dp</artifactId>
+                <version>${iCasaVersion}</version>
+                <type>deployment-package</type>
+            </dependency>
+            <dependency>
 				<groupId>fr.liglab.adele.icasa</groupId>
 				<artifactId>play2.osgi</artifactId>
 				<version>${iCasaVersion}</version>
@@ -435,7 +442,7 @@
 				<version>${roseVersion}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.liglab.adele.m2mappbuilder</groupId>
+				<groupId>fr.liglab.adele.common</groupId>
 				<artifactId>rose.dp</artifactId>
 				<version>${roseVersion}</version>
 				<type>deployment-package</type>
@@ -531,7 +538,7 @@
 				<version>${ciliaVersion}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.liglab.adele.m2mappbuilder</groupId>
+				<groupId>fr.liglab.adele.common</groupId>
 				<artifactId>cilia.dp</artifactId>
 				<version>${ciliaVersion}</version>
 				<type>deployment-package</type>
@@ -785,6 +792,16 @@
 				<artifactId>play2-maven-plugin</artifactId>
 				<version>${playPluginVersion}</version>
 			</extension>
+            <extension>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>${bundlePluginVersion}</version>
+            </extension>
+            <extension>
+                <groupId>de.akquinet.gomobile</groupId>
+                <artifactId>maven-dp-plugin</artifactId>
+                <version>1.0.1-SNAPSHOT</version>
+            </extension>
 		</extensions>
 
 		<plugins>

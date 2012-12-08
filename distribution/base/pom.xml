@@ -42,7 +42,7 @@
       <!-- inherited distribution definition -->
       <inheritedDistribGroupId>${project.groupId}</inheritedDistribGroupId>
       <inheritedDistribArtifactId>distribution.config.base</inheritedDistribArtifactId>
-      <inheritedDistribVersion>${project.version}</inheritedDistribVersion>
+      <inheritedDistribVersion>${adeleCommonVersion}</inheritedDistribVersion>
 
       <!-- temporary distribution directory definition (only used during build processing) -->
       <tempDistribDirectory>${project.build.directory}/distrib-temp/</tempDistribDirectory>
