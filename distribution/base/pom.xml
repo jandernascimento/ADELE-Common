@@ -40,7 +40,7 @@
       <distribProductName>${project.artifactId}</distribProductName>
 
       <!-- inherited distribution definition -->
-      <inheritedDistribGroupId>${project.groupId}</inheritedDistribGroupId>
+      <inheritedDistribGroupId>fr.liglab.adele.common</inheritedDistribGroupId>
       <inheritedDistribArtifactId>distribution.config.base</inheritedDistribArtifactId>
       <inheritedDistribVersion>${adeleCommonVersion}</inheritedDistribVersion>
 
