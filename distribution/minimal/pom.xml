@@ -113,6 +113,7 @@
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.fileinstall</artifactId>
+					<version>3.1.4</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
@@ -159,6 +160,7 @@
 					<groupId>org.apache.log4j</groupId>
 					<artifactId>com.springsource.org.apache.log4j</artifactId>
 				</artifactItem>
+				<!--
 				<artifactItem>
 					<groupId>de.akquinet.gomobile</groupId>
 					<artifactId>deployment-admin-impl</artifactId>
@@ -184,7 +186,8 @@
 					<artifactId>autoload.res.processor</artifactId>
 					<version>${adeleCommonVersion}</version>
 				</artifactItem>
-              </artifactItems>
+				-->
+			</artifactItems>
               <outputDirectory>${tempDistribDirectory}/bundle</outputDirectory>
 			  <overWriteSnapshots>true</overWriteSnapshots>
 			  <overWriteIfNewer>true</overWriteIfNewer>
