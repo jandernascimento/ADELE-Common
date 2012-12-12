@@ -50,7 +50,7 @@
 		<!-- OSGi and tools -->
 		<osgiVersion>4.2.0</osgiVersion>
 		<felixVersion>4.0.3</felixVersion>
-		<fileinstallVersion>3.2.4</fileinstallVersion>
+		<fileinstallVersion>3.1.4</fileinstallVersion>
 		<eventAdminVersion>1.2.14</eventAdminVersion>
 		<gogoCommandVersion>0.12.0</gogoCommandVersion>
 		<gogoRuntimeVersion>0.10.0</gogoRuntimeVersion>

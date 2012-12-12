@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-cd /Users/thomas/workspaces/ADELE-Common/distribution/base/target/distrib-temp
-exec java -jar bin/felix.jar

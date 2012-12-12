@@ -113,7 +113,6 @@
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.fileinstall</artifactId>
-					<version>3.1.4</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
@@ -372,16 +371,18 @@
 
                     // generate a felix distribution start script only used during development
                     def baseDir = project.basedir
+		    def winExecutionScript = project.properties['distribProductName'] + ".bat"
+		    def unixExecutionScript = project.properties['distribProductName']
 
                     def startWinScriptFileName = "start.bat"
                     File startWinScriptFile = new File("$baseDir/$startWinScriptFileName")
                     startWinScriptFile.createNewFile()
-                    startWinScriptFile.write("cd $tempDistribDir\njava -jar bin\\felix.jar\n")
+                    startWinScriptFile.write("cd $tempDistribDir\n"+winExecutionScript+ "\n")
 
                     def startUnixScriptFileName = "start"
                     File startUnixScriptFile = new File("$baseDir/$startUnixScriptFileName")
                     startUnixScriptFile.createNewFile()
-                    startUnixScriptFile.write("#!/usr/bin/env sh\ncd $tempDistribDir\nexec java -jar bin/felix.jar\n")
+                    startUnixScriptFile.write("#!/usr/bin/env sh\ncd $tempDistribDir\nsh "+ unixExecutionScript+"\n")
                     startUnixScriptFile.setExecutable(true,true)
 
                     def debugWinScriptFileName = "debug.bat"
