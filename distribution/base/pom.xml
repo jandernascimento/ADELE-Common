@@ -22,9 +22,9 @@
   <!-- Project parent -->
 	<parent>
 		<groupId>fr.liglab.adele.common</groupId>
-		<artifactId>parent</artifactId>
+		<artifactId>distribution.minimal.base</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../../parent</relativePath>
+		<relativePath>../minimal</relativePath>
 	</parent>
 
   <!-- Project coordinates -->
@@ -39,30 +39,13 @@
       <!-- Name of the distribution product -->
       <distribProductName>${project.artifactId}</distribProductName>
 
-      <!-- inherited distribution definition -->
-      <inheritedDistribGroupId>fr.liglab.adele.common</inheritedDistribGroupId>
-      <inheritedDistribArtifactId>distribution.config.base</inheritedDistribArtifactId>
-      <inheritedDistribVersion>${adeleCommonVersion}</inheritedDistribVersion>
-
-      <!-- temporary distribution directory definition (only used during build processing) -->
-      <tempDistribDirectory>${project.build.directory}/distrib-temp/</tempDistribDirectory>
-
-      <!-- temporary directory used to unzip play2 applications on which we depend on -->
-      <tempPlay2Directory>${project.build.directory}/play2-app-temp/</tempPlay2Directory>
+    
   </properties>
   
   <!-- Project dependencies -->
   <dependencies>
 	
-	<!-- inherited configuration files -->
-	<dependency>
-		<groupId>${inheritedDistribGroupId}</groupId>
-		<artifactId>${inheritedDistribArtifactId}</artifactId>
-		<version>${inheritedDistribVersion}</version>
-		<type>zip</type>
-	</dependency>
 	
-	<!-- deployed packages -->
 
   </dependencies>
   
@@ -78,42 +61,17 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
 		<executions>     
-		  <!-- Copy felix platform in the 'bin' directory -->
-          <execution>
-            <id>copy-felix-binaries</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>copy</goal>
-            </goals>
-            <configuration>
-			  <artifactItems>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.main</artifactId>
-					<version>${felixVersion}</version>
-					<destFileName>felix.jar</destFileName>
-				</artifactItem>
-              </artifactItems>
-              <outputDirectory>${tempDistribDirectory}/bin</outputDirectory>
-			  <overWriteSnapshots>true</overWriteSnapshots>
-			  <overWriteIfNewer>true</overWriteIfNewer>
-            </configuration>
-          </execution>
-    
+		
 		  <!-- Copy bundles in the 'bundle' directory -->
           <execution>
-            <id>copy-platform-bundles</id>
+            <id>copy-platform-bundles2</id>
             <phase>compile</phase>
             <goals>
               <goal>copy</goal>
             </goals>
             <configuration>
 			<artifactItems>
-				<artifactItem>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-					<version>${log4jVersion}</version>
-				</artifactItem>
+				
 				<artifactItem>
 					<groupId>org.ow2.chameleon.handies</groupId>
 					<artifactId>ipojo-log-handler</artifactId>
@@ -124,31 +82,7 @@
 					<artifactId>org.apache.felix.configadmin</artifactId>
 					<version>1.2.8</version>
 				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.fileinstall</artifactId>
-					<version>${fileinstallVersion}</version>
-				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.gogo.command</artifactId>
-					<version>0.8.0</version>
-				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.gogo.runtime</artifactId>
-					<version>0.8.0</version>
-				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.gogo.shell</artifactId>
-					<version>0.8.0</version>
-				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.http.jetty</artifactId>
-					<version>${jettyVersion}</version>
-				</artifactItem>
+			
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.http.whiteboard</artifactId>
@@ -159,11 +93,7 @@
 					<artifactId>org.apache.felix.ipojo.api</artifactId>
 					<version>${iPojoAPIVersion}</version>
 				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.ipojo.arch.gogo</artifactId>
-					<version>${iPojoArchVersion}</version>
-				</artifactItem>
+				
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.ipojo.composite</artifactId>
@@ -179,21 +109,13 @@
 					<artifactId>org.apache.felix.ipojo.webconsole</artifactId>
 					<version>1.6.0</version>
 				</artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.ipojo</artifactId>
-					<version>${iPojoVersion}</version>
-				</artifactItem>
+				
                 <artifactItem>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>org.apache.felix.ipojo.annotations</artifactId>
                     <version>${iPojoVersion}</version>
                 </artifactItem>
-				<artifactItem>
-					<groupId>org.apache.felix</groupId>
-					<artifactId>org.apache.felix.log</artifactId>
-					<version>1.0.0</version>
-				</artifactItem>
+				
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.prefs</artifactId>
@@ -209,21 +131,8 @@
 					<artifactId>org.apache.felix.webconsole</artifactId>
 					<version>3.1.6</version>
 				</artifactItem>
-				<artifactItem>
-					<groupId>org.osgi</groupId>
-					<artifactId>org.osgi.compendium</artifactId>
-					<version>${osgiVersion}</version>
-				</artifactItem>
-				<artifactItem>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-					<version>${slf4jVersion}</version>
-				</artifactItem>
-				<artifactItem>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-simple</artifactId>
-					<version>${slf4jVersion}</version>
-				</artifactItem>
+				
+				
                 <artifactItem>
 					<groupId>de.akquinet.gomobile</groupId>
 					<artifactId>deployment-admin-impl</artifactId>
@@ -255,326 +164,9 @@
 			  <overWriteIfNewer>true</overWriteIfNewer>
             </configuration>
           </execution>
-		
-          <!-- Copy bundles in the 'load' directory -->
-          <execution>
-            <id>copy-autoload-bundles</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>copy-dependencies</goal>
-            </goals>
-            <configuration>
-              <excludeTypes>play2,zip</excludeTypes>
-			  <excludeArtifactIds>distribution.config.base</excludeArtifactIds>
-              <outputDirectory>${tempDistribDirectory}/load</outputDirectory>
-              <overWriteSnapshots>true</overWriteSnapshots>
-              <excludeTransitive>true</excludeTransitive>
-            </configuration>
-          </execution>
+	
 
-          <!-- Copy bundles in the 'load' directory -->
-          <execution>
-            <id>unpack-play2-applications</id>
-            <phase>compile</phase>
-            <goals>
-                <goal>unpack-dependencies</goal>
-            </goals>
-            <configuration>
-                <includeTypes>play2,zip</includeTypes>
-                <excludeArtifactIds>distribution.config.base</excludeArtifactIds>
-                <outputDirectory>${tempPlay2Directory}</outputDirectory>
-                <overWriteSnapshots>true</overWriteSnapshots>
-                <excludeTransitive>true</excludeTransitive>
-            </configuration>
-          </execution>
-
-		  <!-- copy inherited config files -->
-		  <execution>
-				<id>unpack-inherited-config</id>
-				<phase>process-resources</phase>
-				<goals>
-					<goal>unpack-dependencies</goal>
-				</goals>
-				<configuration>
-					<includeGroupIds>${inheritedDistribGroupId}</includeGroupIds>
-					<includeArtifactIds>${inheritedDistribArtifactId}</includeArtifactIds>
-					<outputDirectory>${tempDistribDirectory}</outputDirectory>
-				</configuration>
-		    </execution>
-
-            <!-- copy resources into temporary distribution directory -->
-
-        </executions>
-      </plugin>
-	  
-	  <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <executions>
-		
-		  <!-- copy inherited config files into base dir -->
-          <execution>
-			<id>copy-inherited-config</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <copy failonerror="false"
-					overwrite="true"
-					todir="${tempDistribDirectory}/">
-					<fileset dir="${basedir}/src/main/resources/">
-					    <include name="*"/>
-						<include name="*.txt"/>
-						<include name="conf/*"/>
-						<include name="assembly.xml"/>
-                        <exclude name="save-conf-files/*"/>
-					</fileset>
-				</copy>
-              </target>
-            </configuration>
-          </execution>
-		  
-		  <!-- copy configuration files -->
-		  <execution>
-			<id>copy-config</id>
-            <phase>process-resources</phase>
-            <goals>
-              <goal>run</goal>
-            </goals>
-            <configuration>
-              <target>
-                <mkdir dir="${tempDistribDirectory}/load/"/>
-				<copy failonerror="false"
-					todir="${tempDistribDirectory}/load/">
-					<fileset dir="${basedir}/src/main/resources/save-conf-files/" />
-				</copy>
-              </target>
-            </configuration>
-          </execution>
-
-            <!-- copy inherited config files into base dir -->
-            <execution>
-                <id>copy-play2-application</id>
-                <phase>compile</phase>
-                <goals>
-                    <goal>run</goal>
-                </goals>
-                <configuration>
-                    <target>
-                        <copy failonerror="false"
-                              overwrite="true"
-                              todir="${tempDistribDirectory}/">
-                            <cutdirsmapper dirs="1"/>
-                            <fileset dir="${tempPlay2Directory}/">
-                                <exclude name="*/start"/>
-                                <exclude name="*/*.bat"/>
-                                <include name="*/lib/*"/>
-                                <exclude name="*/lib/org.osgi.core*.jar"/>
-                                <exclude name="*/lib/org.apache.felix.main*.jar"/>
-                                <exclude name="*/lib/org.apache.felix.framework*.jar"/>
-                            </fileset>
-                        </copy>
-                    </target>
-                </configuration>
-            </execution>
-		  
-        </executions>
-      </plugin>
-
-      <plugin>
-        <groupId>org.codehaus.groovy.maven</groupId>
-        <artifactId>gmaven-plugin</artifactId>
-        <version>1.0</version>
-        <executions>
-          <execution>
-            <phase>compile</phase>
-            <goals>
-                <goal>execute</goal>
-            </goals>
-            <configuration>
-                <source>
-                    import org.apache.commons.lang.StringUtils
-
-                    import java.util.zip.ZipInputStream
-
-                    // Replace PRODUCT by specified product name
-
-                    def getExtensionFromFilename(filename) {
-                        def returned_value = ""
-                        m = (filename =~ /(\.[^\.]*)$/)
-                        if (m.size() > 0) returned_value = ((m[0][0].size() > 0) ? m[0][0].substring(1).trim().toLowerCase() : "");
-                        return returned_value
-                    }
-
-                    def tempDistribDir = new File(project.properties['tempDistribDirectory'])
-
-                    tempDistribDir.eachFile { file ->
-
-                        def fileName = file.name
-                        def fileExtension = getExtensionFromFilename(fileName)
-
-                        // replace all PRODUCT match items to real product name
-                        if (fileExtension.equalsIgnoreCase("txt") || fileExtension.equalsIgnoreCase("md")
-                                || fileName.endsWith("assembly.xml") ) {
-
-                            String fileContent = file.text
-                            String newFileContent = fileContent.replaceAll("PRODUCT", project.properties['distribProductName'])
-                            file.write(newFileContent)
-                        }
-
-                        // rename it if file name contains PRODUCT
-                        String oldFileName = fileName
-                        String newFileName = oldFileName.replaceAll("PRODUCT", project.properties['distribProductName'])
-                        if (!newFileName.equals(oldFileName))
-                            file.renameTo(new File(file.parentFile, newFileName))
-                    }
-
-
-                    // generate a felix distribution start script only used during development
-                    def baseDir = project.basedir
-
-                    def startWinScriptFileName = "start.bat"
-                    File startWinScriptFile = new File("$baseDir/$startWinScriptFileName")
-                    startWinScriptFile.createNewFile()
-                    startWinScriptFile.write("cd $tempDistribDir\njava -jar bin\\felix.jar\n")
-
-                    def startUnixScriptFileName = "start"
-                    File startUnixScriptFile = new File("$baseDir/$startUnixScriptFileName")
-                    startUnixScriptFile.createNewFile()
-                    startUnixScriptFile.write("#!/usr/bin/env sh\ncd $tempDistribDir\nexec java -jar bin/felix.jar\n")
-                    startUnixScriptFile.setExecutable(true,true)
-
-                    def debugWinScriptFileName = "debug.bat"
-                    File debugWinScriptFile = new File("$baseDir/$debugWinScriptFileName")
-                    debugWinScriptFile.createNewFile()
-                    debugWinScriptFile.write("cd $tempDistribDir\njava -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y -jar bin\\felix.jar\n")
-
-                    def debugUnixScriptFileName = "debug"
-                    File debugUnixScriptFile = new File("$baseDir/$debugUnixScriptFileName")
-                    debugUnixScriptFile.createNewFile()
-                    debugUnixScriptFile.write("#!/usr/bin/env sh\ncd $tempDistribDir\nexec java -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y -jar bin/felix.jar\n")
-                    debugUnixScriptFile.setExecutable(true,true)
-
-                    File.metaClass.unzip = { String dest ->
-                        //in metaclass added methods, 'delegate' is the object on which
-                        //the method is called. Here it's the file to unzip
-                        def result = new ZipInputStream(new FileInputStream(delegate))
-                        def destFile = new File(dest)
-                        if(!destFile.exists()){
-                            destFile.mkdir();
-                        }
-                        result.withStream{
-                            def entry
-                            while(entry = result.nextEntry){
-                                if (!entry.isDirectory()){
-                                    new File(dest + File.separator + entry.name).parentFile?.mkdirs()
-                                    def output = new FileOutputStream(dest + File.separator
-                                            + entry.name)
-                                    output.withStream{
-                                        int len = 0;
-                                        byte[] buffer = new byte[4096]
-                                        while ((len = result.read(buffer)) > 0){
-                                            output.write(buffer, 0, len);
-                                        }
-                                    }
-                                }
-                                else {
-                                    new File(dest + File.separator + entry.name).mkdir()
-                                }
-                            }
-                        }
-                    }
-
-                    def flattenDPStr = project.properties['flattenDP']
-                    boolean flattenDP = (flattenDPStr.equals("true"))
-                    if (flattenDP) {
-                        File tempDistribLoadDir = new File("$tempDistribDir/load/")
-                        if (tempDistribLoadDir.exists()) {
-                            tempDistribLoadDir.eachFile { file ->
-
-                                def fileName = file.name
-                                def fileExtension = getExtensionFromFilename(fileName)
-
-                                // replace all PRODUCT match items to real product name
-                                if (fileExtension.equalsIgnoreCase("dp")) {
-
-                                    file.unzip("$tempDistribLoadDir")
-                                    file.delete()
-                                }
-                            }
-                        }
-
-                        File tempDistribLoadBundleDir = new File("$tempDistribLoadDir/bundles/")
-                        if (tempDistribLoadBundleDir.exists()) {
-                            tempDistribLoadBundleDir.eachFile { file ->
-                                file.renameTo(new File(tempDistribLoadDir, file.getName()));
-                            }
-                            tempDistribLoadBundleDir.deleteDir()
-                        }
-
-                        File tempDistribLoadManifestDir = new File("$tempDistribLoadDir/META-INF/")
-                        if (tempDistribLoadManifestDir.exists()) {
-                            tempDistribLoadManifestDir.deleteDir()
-                        }
-                    }
-
-                </source>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-	  
-	  <!-- clean implementation -->
-	  <plugin>
-		<artifactId>maven-clean-plugin</artifactId>
-		<version>2.5</version>
-		<configuration>
-			<filesets>
-				<fileset>
-					<directory>.</directory>
-					<includes>
-						<include>bin/*</include>
-						<include>bundle/*</include>
-						<include>bin</include>
-						<include>bundle</include>
-						<include>felix-cache/**/*</include>
-						<include>felix-cache</include>
-						<include>load/*</include>
-						<include>load</include>
-						<include>${distribProductName}.bat</include>
-                        <include>${distribProductName}Debug.bat</include>
-						<include>${distribProductName}</include>
-						<include>${distribProductName}Debug</include>
-					</includes>
-					<excludes>
-						<exclude>pom.xml</exclude>
-						<exclude>save-conf-files/*</exclude>
-					</excludes>
-					<followSymlinks>false</followSymlinks>
-				</fileset>
-			</filesets>
-		</configuration>
-	  </plugin>
-	  
-	  <!-- generate distribution zip -->
-	  <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-assembly-plugin</artifactId>
-		<executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-                <goal>single</goal>
-              </goals>
-              <configuration>
-			    <appendAssemblyId>false</appendAssemblyId>
-				<descriptors>
-					<descriptor>${tempDistribDirectory}/assembly.xml</descriptor>
-				</descriptors>
-              </configuration>
-            </execution>
+      
         </executions>
       </plugin>
 	  

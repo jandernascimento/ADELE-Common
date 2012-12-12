@@ -30,8 +30,8 @@
 
 	<modules>
 		<module>config-base</module>
-		<module>base</module>
 		<module>minimal</module>
+		<module>base</module>
 	</modules>
 
 </project>
