@@ -482,8 +482,12 @@
 						<include>felix-cache</include>
 						<include>load/*</include>
 						<include>load</include>
+						<include>start</include>
+						<include>start.bat</include>
+						<include>debug</include>
+						<include>debug.bat</include>
 						<include>${distribProductName}.bat</include>
-                        <include>${distribProductName}Debug.bat</include>
+						<include>${distribProductName}Debug.bat</include>
 						<include>${distribProductName}</include>
 						<include>${distribProductName}Debug</include>
 					</includes>
