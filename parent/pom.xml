@@ -55,6 +55,7 @@
 		<gogoCommandVersion>0.12.0</gogoCommandVersion>
 		<gogoRuntimeVersion>0.10.0</gogoRuntimeVersion>
 		<obrVersion>1.0.2</obrVersion>
+        <pojosrVersion>0.2.1</pojosrVersion>
 		<!-- REST, Web Server and web tools -->
 		<servletAPIVersion>2.5</servletAPIVersion>
 		<mailVersion>1.4.3</mailVersion>
@@ -69,6 +70,8 @@
 		<jaxbVersion>2.2.1</jaxbVersion>
 		<jcupVersion>5.3.1</jcupVersion>
 		<monologVersion>5.2.0</monologVersion>
+        <!-- Tests -->
+        <testngVersion>6.1.1</testngVersion>
 		<!-- plugins -->
 		<bundlePluginVersion>2.3.7</bundlePluginVersion>
 		<iPojoPluginVersion>1.8.6</iPojoPluginVersion>
@@ -86,6 +89,7 @@
 		<assemblyPluginVersion>2.3</assemblyPluginVersion>
 		<playPluginVersion>1.2.1</playPluginVersion>
 		<lifecyclePluginVersion>1.0.0</lifecyclePluginVersion>
+        <failsafePluginVersion>2.12.4</failsafePluginVersion>
 		
 		<!-- By default, all sources are UTF-8-encoded. -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -693,6 +697,26 @@
 				<artifactId>monolog</artifactId>
 				<version>${monologVersion}</version>
 			</dependency>
+
+            <!-- PojoSR test framework -->
+            <dependency>
+                <groupId>com.googlecode.pojosr</groupId>
+                <artifactId>de.kalpatec.pojosr.framework</artifactId>
+                <version>${pojosrVersion}</version>
+                <type>bundle</type>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>${testngVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.common</groupId>
+                <version>${adeleCommonVersion}</version>
+                <artifactId>test-pojosr</artifactId>
+                <scope>test</scope>
+            </dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -886,6 +910,12 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-failsafe-plugin</artifactId>
+                    <version>${failsafePluginVersion}</version>
+                </plugin>
 			</plugins>
 		</pluginManagement>
 

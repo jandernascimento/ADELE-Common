@@ -1,0 +1,57 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<packaging>bundle</packaging> <!-- Use the BND Maven plug-in -->
+
+	<!-- Project parent -->
+	<parent>
+		<groupId>fr.liglab.adele.common</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../../parent</relativePath>
+	</parent>
+
+	<!-- Project Description -->
+	<artifactId>test-pojosr</artifactId>
+	<name>${productName} :: ${projectName}</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.googlecode.pojosr</groupId>
+			<artifactId>de.kalpatec.pojosr.framework</artifactId>
+			<type>bundle</type>
+		</dependency>
+
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+		</dependency>
+
+		<!-- Embedding the iPOJO bundle into the POJOSR platform. As dependencies 
+			are resolved transitively. the iPOJO project will be added to the classpath 
+			and therefore be deployed into the POJOSR platform -->
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.ipojo</artifactId>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<plugins>
+			<!-- BND Maven Plugin Configuration -->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${pom.artifactId}</Bundle-SymbolicName>
+						<Export-Package>fr.liglab.adele.common.test.pojosr</Export-Package>
+					</instructions>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
