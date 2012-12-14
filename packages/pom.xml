@@ -29,7 +29,6 @@
 	<name>${productName} :: ${projectName}</name>
 
 	<modules>
-		<module>cilia-dp</module>
 		<module>rose-dp</module>
 	</modules>
 

@@ -651,7 +651,7 @@
 				<version>${ciliaVersion}</version>
 			</dependency>
 			<dependency>
-				<groupId>fr.liglab.adele.common</groupId>
+				<groupId>fr.liglab.adele.cilia</groupId>
 				<artifactId>cilia.dp</artifactId>
 				<version>${ciliaVersion}</version>
 				<type>deployment-package</type>
