@@ -416,7 +416,6 @@
 			</dependency>
 
 			<!-- iCasa -->
-            <!-- iCasa -->
             <dependency>
                 <groupId>fr.liglab.adele.icasa</groupId>
                 <artifactId>clock.api</artifactId>
@@ -464,7 +463,12 @@
             </dependency>
             <dependency>
                 <groupId>fr.liglab.adele.icasa</groupId>
-                <artifactId>environment.api</artifactId>
+                <artifactId>device.bathroom.scale</artifactId>
+                <version>${iCasaVersion}</version>
+            </dependency>
+            <dependency>
+                <groupId>fr.liglab.adele.icasa</groupId>
+                <artifactId>simulator.api</artifactId>
                 <version>${iCasaVersion}</version>
             </dependency>
             <dependency>
@@ -494,12 +498,7 @@
             </dependency>
             <dependency>
                 <groupId>fr.liglab.adele.icasa</groupId>
-                <artifactId>simulated.environment</artifactId>
-                <version>${iCasaVersion}</version>
-            </dependency>
-            <dependency>
-                <groupId>fr.liglab.adele.icasa</groupId>
-                <artifactId>common.device.widgets</artifactId>
+                <artifactId>simulator.impl</artifactId>
                 <version>${iCasaVersion}</version>
             </dependency>
             <dependency>
@@ -713,7 +712,7 @@
             <dependency>
                 <groupId>fr.liglab.adele.common</groupId>
                 <version>${adeleCommonVersion}</version>
-                <artifactId>test-pojosr</artifactId>
+                <artifactId>test.pojosr</artifactId>
                 <scope>test</scope>
             </dependency>
 
