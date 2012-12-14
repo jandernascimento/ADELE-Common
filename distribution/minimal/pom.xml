@@ -266,6 +266,7 @@
 						<include name="*.txt"/>
 						<include name="conf/*"/>
 						<include name="assembly.xml"/>
+                        <include name="WEB-INF/**/*"/>
                         <exclude name="save-conf-files/*"/>
 					</fileset>
 				</copy>
