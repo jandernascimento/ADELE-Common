@@ -13,7 +13,7 @@
 	</parent>
 
 	<!-- Project Description -->
-	<artifactId>test-pojosr</artifactId>
+	<artifactId>test.pojosr</artifactId>
 	<name>${productName} :: ${projectName}</name>
 
 	<dependencies>

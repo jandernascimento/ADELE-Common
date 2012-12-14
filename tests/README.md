@@ -24,7 +24,7 @@ Example :
   <dependency>
     <groupId>fr.liglab.adele.common</groupId>
     <version>1.0.0-SNAPSHOT</version>
-    <artifactId>test-pojosr</artifactId>
+    <artifactId>test.pojosr</artifactId>
     <scope>test</scope>
   </dependency>
   
