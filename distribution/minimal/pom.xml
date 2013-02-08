@@ -230,16 +230,17 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <goal>run</goal>
             </goals>
             <configuration>
-            <target>
-               <copy failonerror="false"
-               overwrite="true"
-               todir="${tempDistribDirectory}/">
-               <fileset dir="${basedir}/src/main/resources/">
-                  <include name="*"/>
-                  <include name="*.txt"/>
-                  <include name="conf/*"/>
-                  <include name="assembly.xml"/>
-                        <exclude name="save-conf-files/*"/>
+              <target>
+                <copy failonerror="false"
+					overwrite="true"
+					todir="${tempDistribDirectory}/">
+					<fileset dir="${basedir}/src/main/resources/">
+					    <include name="*"/>
+						<include name="*.txt"/>
+						<include name="conf/*"/>
+						<include name="assembly.xml"/>
+                  <include name="WEB-INF/**/*"/>
+                  <exclude name="save-conf-files/*"/>
                </fileset>
             </copy>
             </target>
