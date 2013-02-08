@@ -46,9 +46,14 @@
          <id>release</id>
          <modules>
             <module>base</module>
-            <module>commons</module>
             <module>deployment-package-extensions</module>
             <module>packages</module>
+         </modules>
+      </profile>
+      <profile>
+         <id>release2</id>
+         <modules>
+            <module>commons</module>
             <module>distribution</module>
          </modules>
       </profile>
