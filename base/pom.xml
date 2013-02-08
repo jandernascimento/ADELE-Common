@@ -7,15 +7,13 @@
    OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
    the specific language governing permissions and limitations under the License. -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
    <!-- Project coordinates -->
    <groupId>fr.liglab.adele.common</groupId>
    <artifactId>base</artifactId>
-   <version>1.0.1-SNAPSHOT</version>
+   <version>1.0.1</version>
    <packaging>pom</packaging>
 
    <!-- Project description -->
@@ -751,7 +749,7 @@
                               </goals>
                            </pluginExecutionFilter>
                            <action>
-                              <ignore></ignore>
+                              <ignore />
                            </action>
                         </pluginExecution>
                      </pluginExecutions>
@@ -836,6 +834,6 @@
       <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
       <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
       <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>ADELE-Common 1.0.1</tag>
    </scm>
 </project>

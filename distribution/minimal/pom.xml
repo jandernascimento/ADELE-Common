@@ -14,16 +14,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
-xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 <modelVersion>4.0.0</modelVersion>
 
 <!-- Project parent -->
    <parent>
       <groupId>fr.liglab.adele.common</groupId>
       <artifactId>commons</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.0.1</version>
       <relativePath>../../commons</relativePath>
    </parent>
 
@@ -58,7 +56,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <dependency>
       <groupId>${inheritedDistribGroupId}</groupId>
       <artifactId>${inheritedDistribArtifactId}</artifactId>
-      <version>1.0.1-SNAPSHOT</version>
+      <version>1.0.1</version>
       <type>zip</type>
    </dependency>
    
@@ -231,16 +229,14 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             </goals>
             <configuration>
               <target>
-                <copy failonerror="false"
-					overwrite="true"
-					todir="${tempDistribDirectory}/">
+                <copy failonerror="false" overwrite="true" todir="${tempDistribDirectory}/">
 					<fileset dir="${basedir}/src/main/resources/">
-					    <include name="*"/>
-						<include name="*.txt"/>
-						<include name="conf/*"/>
-						<include name="assembly.xml"/>
-                  <include name="WEB-INF/**/*"/>
-                  <exclude name="save-conf-files/*"/>
+					    <include name="*" />
+						<include name="*.txt" />
+						<include name="conf/*" />
+						<include name="assembly.xml" />
+                  <include name="WEB-INF/**/*" />
+                  <exclude name="save-conf-files/*" />
                </fileset>
             </copy>
             </target>
@@ -256,9 +252,8 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             </goals>
             <configuration>
             <target>
-               <mkdir dir="${tempDistribDirectory}/load/"/>
-            <copy failonerror="false"
-               todir="${tempDistribDirectory}/load/">
+               <mkdir dir="${tempDistribDirectory}/load/" />
+            <copy failonerror="false" todir="${tempDistribDirectory}/load/">
                <fileset dir="${basedir}/src/main/resources/save-conf-files/" />
             </copy>
             </target>
@@ -274,17 +269,15 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                </goals>
                <configuration>
                   <target>
-                        <copy failonerror="false"
-                              overwrite="true"
-                              todir="${tempDistribDirectory}/">
-                           <cutdirsmapper dirs="1"/>
+                        <copy failonerror="false" overwrite="true" todir="${tempDistribDirectory}/">
+                           <cutdirsmapper dirs="1" />
                            <fileset dir="${tempPlay2Directory}/">
-                              <exclude name="*/start"/>
-                              <exclude name="*/*.bat"/>
-                              <include name="*/lib/*"/>
-                              <exclude name="*/lib/org.osgi.core*.jar"/>
-                              <exclude name="*/lib/org.apache.felix.main*.jar"/>
-                              <exclude name="*/lib/org.apache.felix.framework*.jar"/>
+                              <exclude name="*/start" />
+                              <exclude name="*/*.bat" />
+                              <include name="*/lib/*" />
+                              <exclude name="*/lib/org.osgi.core*.jar" />
+                              <exclude name="*/lib/org.apache.felix.main*.jar" />
+                              <exclude name="*/lib/org.apache.felix.framework*.jar" />
                            </fileset>
                         </copy>
                   </target>
@@ -315,13 +308,13 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   def getExtensionFromFilename(filename) {
                         def returned_value = ""
                         m = (filename =~ /(\.[^\.]*)$/)
-                        if (m.size() > 0) returned_value = ((m[0][0].size() > 0) ? m[0][0].substring(1).trim().toLowerCase() : "");
+                        if (m.size() &gt; 0) returned_value = ((m[0][0].size() &gt; 0) ? m[0][0].substring(1).trim().toLowerCase() : "");
                         return returned_value
                   }
 
                   def tempDistribDir = new File(project.properties['tempDistribDirectory'])
 
-                  tempDistribDir.eachFile { file ->
+                  tempDistribDir.eachFile { file -&gt;
 
                         def fileName = file.name
                         def fileExtension = getExtensionFromFilename(fileName)
@@ -370,7 +363,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   debugUnixScriptFile.write("#!/usr/bin/env sh\ncd $tempDistribDir\nexec java -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=y -jar bin/felix.jar\n")
                   debugUnixScriptFile.setExecutable(true,true)
 
-                  File.metaClass.unzip = { String dest ->
+                  File.metaClass.unzip = { String dest -&gt;
                         //in metaclass added methods, 'delegate' is the object on which
                         //the method is called. Here it's the file to unzip
                         def result = new ZipInputStream(new FileInputStream(delegate))
@@ -388,7 +381,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                                     output.withStream{
                                        int len = 0;
                                        byte[] buffer = new byte[4096]
-                                       while ((len = result.read(buffer)) > 0){
+                                       while ((len = result.read(buffer)) &gt; 0){
                                           output.write(buffer, 0, len);
                                        }
                                     }
@@ -405,7 +398,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   if (flattenDP) {
                         File tempDistribLoadDir = new File("$tempDistribDir/load/")
                         if (tempDistribLoadDir.exists()) {
-                           tempDistribLoadDir.eachFile { file ->
+                           tempDistribLoadDir.eachFile { file -&gt;
 
                               def fileName = file.name
                               def fileExtension = getExtensionFromFilename(fileName)
@@ -421,7 +414,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
                         File tempDistribLoadBundleDir = new File("$tempDistribLoadDir/bundles/")
                         if (tempDistribLoadBundleDir.exists()) {
-                           tempDistribLoadBundleDir.eachFile { file ->
+                           tempDistribLoadBundleDir.eachFile { file -&gt;
                               file.renameTo(new File(tempDistribLoadDir, file.getName()));
                            }
                            tempDistribLoadBundleDir.deleteDir()
