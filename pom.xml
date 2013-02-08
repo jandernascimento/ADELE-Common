@@ -64,4 +64,10 @@
          </plugin>
       </plugins>
    </build>
+   <scm>
+      <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
+      <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
+      <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
+      <tag>HEAD</tag>
+   </scm>
 </project>
