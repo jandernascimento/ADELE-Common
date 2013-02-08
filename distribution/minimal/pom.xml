@@ -58,7 +58,7 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
    <dependency>
       <groupId>${inheritedDistribGroupId}</groupId>
       <artifactId>${inheritedDistribArtifactId}</artifactId>
-      <version>${inheritedDistribVersion}</version>
+      <version>1.0.1-SNAPSHOT</version>
       <type>zip</type>
    </dependency>
    
