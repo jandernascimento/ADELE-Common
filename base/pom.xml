@@ -35,8 +35,10 @@
       <iPojoVersion>1.8.2</iPojoVersion>
       <iPojoAPIVersion>1.6.0</iPojoAPIVersion>
       <iPojoMetadataVersion>1.4.0</iPojoMetadataVersion>
+      <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
       <iPojoArchVersion>1.0.1</iPojoArchVersion>
       <iPojoHandiesVersion>0.0.1-SNAPSHOT</iPojoHandiesVersion>
+      <ipojoWebconsole>1.6.0</ipojoWebconsole>
       <!-- Logs -->
       <slf4jVersion>1.6.4</slf4jVersion>
       <log4jVersion>1.2.16</log4jVersion>
@@ -50,6 +52,8 @@
       <gogoRuntimeVersion>0.10.0</gogoRuntimeVersion>
       <obrVersion>1.0.2</obrVersion>
       <pojosrVersion>0.2.1</pojosrVersion>
+      <configAdminVersion>1.2.8</configAdminVersion>
+      <whiteboardVersion>2.0.4</whiteboardVersion>
       <!-- REST, Web Server and web tools -->
       <servletAPIVersion>2.5</servletAPIVersion>
       <mailVersion>1.4.3</mailVersion>
@@ -276,6 +280,16 @@
             <artifactId>org.apache.felix.log</artifactId>
             <version>${felixLogVersion}</version>
          </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.configadmin</artifactId>
+            <version>${configAdminVersion}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.http.whiteboard</artifactId>
+            <version>${whiteboardVersion}</version>
+         </dependency>
          <!-- The OSGi r4.2 API -->
          <dependency>
             <groupId>org.osgi</groupId>
@@ -292,6 +306,7 @@
             <artifactId>org.osgi.enterprise</artifactId>
             <version>${osgiVersion}</version>
          </dependency>
+         
 
          <!-- felix framework -->
          <dependency>
@@ -328,6 +343,11 @@
          <!-- Apache Felix iPOJO 1.8.x framework and API -->
          <dependency>
             <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.ipojo.composite</artifactId>
+            <version>${iPojoVersion}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.ipojo.metadata</artifactId>
             <version>${iPojoMetadataVersion}</version>
          </dependency>
@@ -335,6 +355,31 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.ipojo.annotations</artifactId>
             <version>${iPojoVersion}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.ipojo.handler.extender</artifactId>
+            <version>${ipojoHandlerExtender}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.ipojo.webconsole</artifactId>
+            <version>${ipojoWebconsole}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.prefs</artifactId>
+            <version>1.0.4</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.webconsole.plugins.event</artifactId>
+            <version>1.0.2</version>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.webconsole</artifactId>
+            <version>3.1.6</version>
          </dependency>
          <dependency>
             <groupId>org.apache.felix</groupId>
@@ -419,6 +464,12 @@
             <artifactId>deployment-package-api</artifactId>
             <version>${deploymentPackageVersion}</version>
          </dependency>
+         <dependency>
+            <groupId>de.akquinet.gomobile</groupId>
+            <artifactId>autoconf-resource-processor</artifactId>
+            <version>${deploymentPackageVersion}</version>
+         </dependency>
+         
    
 
          <!-- ROSE -->

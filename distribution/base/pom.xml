@@ -73,88 +73,74 @@
 				<artifactItem>
 					<groupId>org.ow2.chameleon.handies</groupId>
 					<artifactId>ipojo-log-handler</artifactId>
-					<version>0.0.1-SNAPSHOT</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.configadmin</artifactId>
-					<version>1.2.8</version>
 				</artifactItem>
 			
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.http.whiteboard</artifactId>
-					<version>2.0.4</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.ipojo.api</artifactId>
-					<version>${iPojoAPIVersion}</version>
 				</artifactItem>
 				
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.ipojo.composite</artifactId>
-					<version>${iPojoVersion}</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.ipojo.handler.extender</artifactId>
-					<version>1.4.0</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.ipojo.webconsole</artifactId>
-					<version>1.6.0</version>
 				</artifactItem>
 				
                 <artifactItem>
                     <groupId>org.apache.felix</groupId>
                     <artifactId>org.apache.felix.ipojo.annotations</artifactId>
-                    <version>${iPojoVersion}</version>
                 </artifactItem>
 				
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.prefs</artifactId>
-					<version>1.0.4</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.webconsole.plugins.event</artifactId>
-					<version>1.0.2</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>org.apache.felix</groupId>
 					<artifactId>org.apache.felix.webconsole</artifactId>
-					<version>3.1.6</version>
 				</artifactItem>
 				
 				
                 <artifactItem>
 					<groupId>de.akquinet.gomobile</groupId>
 					<artifactId>deployment-admin-impl</artifactId>
-					<version>1.0.1-SNAPSHOT</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>de.akquinet.gomobile</groupId>
 					<artifactId>deployment-package-api</artifactId>
-					<version>1.0.1-SNAPSHOT</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>de.akquinet.gomobile</groupId>
 					<artifactId>autoconf-resource-processor</artifactId>
-					<version>1.0.1-SNAPSHOT</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>fr.liglab.adele.common</groupId>
 					<artifactId>deployment.package.file.install</artifactId>
-					<version>${adeleCommonVersion}</version>
+               <version>1.0.2-SNAPSHOT</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>fr.liglab.adele.common</groupId>
 					<artifactId>autoload.res.processor</artifactId>
-					<version>${adeleCommonVersion}</version>
+               <version>1.0.2-SNAPSHOT</version>
 				</artifactItem>
               </artifactItems>
               <outputDirectory>${tempDistribDirectory}/bundle</outputDirectory>
