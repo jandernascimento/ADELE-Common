@@ -135,12 +135,12 @@
 				<artifactItem>
 					<groupId>fr.liglab.adele.common</groupId>
 					<artifactId>deployment.package.file.install</artifactId>
-               <version>1.0.2-SNAPSHOT</version>
+               <version>1.0.2</version>
 				</artifactItem>
 				<artifactItem>
 					<groupId>fr.liglab.adele.common</groupId>
 					<artifactId>autoload.res.processor</artifactId>
-               <version>1.0.2-SNAPSHOT</version>
+               <version>1.0.2</version>
 				</artifactItem>
               </artifactItems>
               <outputDirectory>${tempDistribDirectory}/bundle</outputDirectory>
