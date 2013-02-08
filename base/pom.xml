@@ -13,7 +13,7 @@
    <!-- Project coordinates -->
    <groupId>fr.liglab.adele.common</groupId>
    <artifactId>base</artifactId>
-   <version>1.0.3</version>
+   <version>1.0.4-SNAPSHOT</version>
    <packaging>pom</packaging>
 
    <!-- Project description -->
@@ -885,6 +885,6 @@
       <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
       <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
       <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
-      <tag>root-1.0.3</tag>
+      <tag>HEAD</tag>
    </scm>
 </project>
