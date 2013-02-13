@@ -29,7 +29,7 @@
   <artifactId>distribution.base</artifactId>
   <packaging>pom</packaging>
   <name>${productName} :: ${projectName}</name>
-  <version>1.0.4-SNAPSHOT</version>
+  <version>1.0.4</version>
   <properties>
       <!-- flag to flatten deployment packages -->
       <flattenDP>false</flattenDP>
@@ -172,6 +172,6 @@
      <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
      <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
      <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
-     <tag>HEAD</tag>
+     <tag>distribution.base-1.0.4</tag>
   </scm>
 </project>
