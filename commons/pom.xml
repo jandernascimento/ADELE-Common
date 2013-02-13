@@ -20,7 +20,7 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
          <groupId>fr.liglab.adele.common</groupId>
          <artifactId>commons</artifactId>
          <packaging>pom</packaging>
-         <version>1.0.4-SNAPSHOT</version>
+         <version>1.0.4</version>
          
          <!-- Project description -->
          <name>${productName} :: ${projectName}</name>
@@ -242,7 +242,7 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
             <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
             <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
             <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
-            <tag>HEAD</tag>
+            <tag>commons-1.0.4</tag>
          </scm>
       </project>
       
