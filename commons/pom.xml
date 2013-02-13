@@ -231,13 +231,6 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
                </dependency>
             </dependencies>
          </dependencyManagement>
-         <distributionManagement>
-            <repository>
-               <id>cloudbees-adele-release</id>
-               <name>Cloudbees Adele Repository</name>
-               <url>dav:https://repository-icasa.forge.cloudbees.com/release</url>
-            </repository>
-         </distributionManagement>
          
          <scm>
             <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>

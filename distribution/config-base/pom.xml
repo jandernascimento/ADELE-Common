@@ -21,12 +21,13 @@
 	<parent>
 		<groupId>fr.liglab.adele.common</groupId>
 		<artifactId>base</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
+		<version>1.0.3</version>
 		<relativePath>../../base</relativePath>
 	</parent>
 
   <!-- Project coordinates -->
   <artifactId>distribution.config.base</artifactId>
+  <version>1.0.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <!-- Project description -->
@@ -65,4 +66,10 @@
     </plugins>
   </build>
   
+  <scm>
+     <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
+     <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
+     <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
+     <tag>HEAD</tag>
+  </scm>
 </project>
