@@ -14,12 +14,13 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
          <parent>
             <groupId>fr.liglab.adele.common</groupId>
             <artifactId>base</artifactId>
-            <version>1.0.4-SNAPSHOT</version>
+            <version>1.0.3</version>
             <relativePath>../base</relativePath>
          </parent>
          <groupId>fr.liglab.adele.common</groupId>
          <artifactId>commons</artifactId>
          <packaging>pom</packaging>
+         <version>1.0.4-SNAPSHOT</version>
          
          <!-- Project description -->
          <name>${productName} :: ${projectName}</name>
@@ -33,7 +34,7 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
             <projectName>${project.artifactId}</projectName>
             
             <!-- ADELE Projects -->
-            <adeleCommonVersion>1.0.1</adeleCommonVersion>
+            <adeleCommonVersion>1.0.3</adeleCommonVersion>
             <ciliaVersion>1.6.3</ciliaVersion>
             <roseVersion>1.0.2</roseVersion>
             <iCasaVersion>0.0.1</iCasaVersion>
@@ -200,26 +201,26 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
                <dependency>
                   <groupId>fr.liglab.adele.cilia</groupId>
                   <artifactId>cilia.dp</artifactId>
-                  <version>${ciliaVersionSnapshot}</version>
+                  <version>${ciliaVersion}</version>
                   <type>deployment-package</type>
                </dependency>
                <dependency>
                   <groupId>fr.liglab.adele.cilia</groupId>
                   <artifactId>cilia-eventadmin.dp</artifactId>
                   <type>deployment-package</type>
-                  <version>${ciliaVersionSnapshot}</version>
+                  <version>${ciliaVersion}</version>
                </dependency>
                <dependency>
                   <groupId>fr.liglab.adele.cilia</groupId>
                   <artifactId>cilia-remote.dp</artifactId>
                   <type>deployment-package</type>
-                  <version>${ciliaVersionSnapshot}</version>
+                  <version>${ciliaVersion}</version>
                </dependency>
                <dependency>
                   <groupId>fr.liglab.adele.cilia</groupId>
                   <artifactId>cilia-joram.dp</artifactId>
                   <type>deployment-package</type>
-                  <version>${ciliaVersionSnapshot}</version>
+                  <version>${ciliaVersion}</version>
                </dependency>
                <!-- Tests-->
                <dependency>
@@ -230,5 +231,19 @@ OR CONDITIONS OF ANY KIND, either express or implied. See the License for
                </dependency>
             </dependencies>
          </dependencyManagement>
+         <distributionManagement>
+            <repository>
+               <id>cloudbees-adele-release</id>
+               <name>Cloudbees Adele Repository</name>
+               <url>dav:https://repository-icasa.forge.cloudbees.com/release</url>
+            </repository>
+         </distributionManagement>
+         
+         <scm>
+            <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
+            <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
+            <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
+            <tag>HEAD</tag>
+         </scm>
       </project>
       
