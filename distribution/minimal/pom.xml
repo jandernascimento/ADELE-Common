@@ -21,7 +21,7 @@ limitations under the License.
    <parent>
       <groupId>fr.liglab.adele.common</groupId>
       <artifactId>commons</artifactId>
-      <version>1.0.4-SNAPSHOT</version>
+      <version>1.0.4</version>
       <relativePath>../../commons</relativePath>
    </parent>
 
@@ -490,7 +490,18 @@ limitations under the License.
    
    </plugins>
 </build>
-
+<repositories>
+   <repository>
+      <id>iCASA.snapshot</id>
+      <name>iCASA Snapshot Repository</name>
+      <url>http://repository-icasa.forge.cloudbees.com/snapshot/</url>
+   </repository>
+   <repository>
+      <id>iCASA.release</id>
+      <name>iCASA Release Repository</name>
+      <url>http://repository-icasa.forge.cloudbees.com/release/</url>
+   </repository>
+</repositories>
   <scm>
      <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
      <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
