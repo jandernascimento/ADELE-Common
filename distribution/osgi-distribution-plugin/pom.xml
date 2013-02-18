@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>fr.liglab.adele.common</groupId>
+		<artifactId>parent</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath></relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>sample.plugin</groupId>
+	<artifactId>osgi-distribution-plugin</artifactId>
+	<packaging>maven-plugin</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>osgi distribution plugin Maven Mojo</name>
+
+	<repositories>
+		<repository>
+			<id>icasa-snapshot-repository</id>
+			<name>iCASA Snapshot repository</name>
+			<url>https://repository-icasa.forge.cloudbees.com/snapshot/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>icasa-release-repository</id>
+			<name>iCASA Release repository</name>
+			<url>https://repository-icasa.forge.cloudbees.com/release/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>mojo-executor-repository</id>
+			<name>Mojo Executor Repository for Maven</name>
+			<url>http://twdata-m2-repository.googlecode.com/svn/</url>
+		</repository>
+		
+		<repository>
+		    <id>nimp</id>
+		    <name>nimp repository</name>
+		    <url>http://el4.elca-services.ch/el4j/maven2repository/</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.twdata.maven</groupId>
+			<artifactId>mojo-executor</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.maven</groupId>
+			<artifactId>maven-plugin-api</artifactId>
+			<version>2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.plexus</groupId>
+			<artifactId>plexus-archiver</artifactId>
+			<version>1.0-alpha-7</version>
+		</dependency>
+	</dependencies>
+</project>
