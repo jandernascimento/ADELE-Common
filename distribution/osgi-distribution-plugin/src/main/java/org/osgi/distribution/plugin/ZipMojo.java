@@ -1,7 +1,4 @@
-/*
- * Copyright @2005 - Accor - All Rights Reserved
- * www.accorhotels.com
- */
+
 package org.osgi.distribution.plugin;
 
 import java.io.File;
@@ -16,10 +13,9 @@ import org.codehaus.plexus.archiver.zip.ZipArchiver;
 
 /**
  * Zip all pom resources content in a .zip file
- * @author <a href="mailto:Olivier.LAMY@accor.com">olamy</a>
- * created 25 nov. 2005
- * @version $Id$
+ * 
  * @goal zip
+ * @execute phase="prepare-package"
  * @phase package
  */
 public class ZipMojo
@@ -67,8 +63,8 @@ public class ZipMojo
         // Mac 
         "**/.DS_Store", 
         
-        // Zip and rar folders
-        "**/*.zip", "**/*.rar"
+        // Zip and rar and tmp
+        "**/*.zip", "**/*.rar", "**/*.tmp"
     }; 
 
     private static final String[] DEFAULT_INCLUDES = new String[]{"**/**"}; 
@@ -89,7 +85,6 @@ public class ZipMojo
         if ( this.getProject().getResources().size() < 1 )
         {
             this.getLog().error( "No resources provided nothing is made" );
-            // TODO this needs to be an exception ?? 
             return;
         }
         try

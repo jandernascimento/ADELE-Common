@@ -53,10 +53,10 @@ public class PrepareMojo extends AbstractMojo {
 	/**
 	 * Maven plugin output metadata
 	 * 
-	 * @parameter expression=${output}
+	 * @parameter alias="outputs"
 	 * @readonly
 	 */
-	protected OutputMetadata output;
+	private List<Output> outputs;
 
 	/**
 	 * Execute that mojo.
@@ -65,6 +65,28 @@ public class PrepareMojo extends AbstractMojo {
 		distribDirectory = project.getProperties().getProperty(
 				"distribDirectory");
 		manageDependencies();
+		manageResources();
+	}
+
+	private void manageResources() throws MojoExecutionException {
+		
+		Xpp3Dom config = MojoExecutor.configuration(MojoExecutor.element("outputDirectory", distribDirectory));
+		
+		
+//		Xpp3Dom copy = new Xpp3Dom("copy");
+//		copy.setAttribute("failonerror", Boolean.toString(false));
+//		copy.setAttribute("overwrite", Boolean.toString(true));
+//		copy.setAttribute("todir", distribDirectory);
+//		Xpp3Dom fileset = new Xpp3Dom("fileset");
+//		fileset.setAttribute("dir", project.g);
+		
+		
+		MojoExecutor.executeMojo(
+				MojoExecutor.plugin("org.apache.maven.plugins",
+						"maven-resources-plugin", "2.6"), MojoExecutor
+						.goal("resources"), config, MojoExecutor
+						.executionEnvironment(project, session, pluginManager));
+		
 	}
 
 	/**
@@ -122,25 +144,8 @@ public class PrepareMojo extends AbstractMojo {
 	 */
 	private void copyDependency(Dependency dep) throws MojoExecutionException {
 
-		Xpp3Dom config = MojoExecutor.configuration(
-				MojoExecutor.element("overWriteSnapshots", "true"),
-				MojoExecutor.element("overWriteIfNewer", "true"));
-
-		if (dep.getType().equals("osgi-distribution")) {
-			config.addChild(MojoExecutor.element("outputDirectory",
-					distribDirectory).toDom());
-		} else {
-			if (output != null) {
-				// send to right place
-				config.addChild(MojoExecutor.element("outputDirectory",
-						distribDirectory + output.getDirectory()).toDom());
-			} else {
-				// default : send all dependencies to load folder
-				config.addChild(MojoExecutor.element("outputDirectory",
-						distribDirectory + "load").toDom());
-			}
-		}
-
+		// prepare dependency plugin config
+		boolean foundMatching = false;
 		Xpp3Dom items = null;
 		items = new Xpp3Dom("artifactItems");
 		Xpp3Dom itemAsDom = new Xpp3Dom("artifactItem");
@@ -151,10 +156,47 @@ public class PrepareMojo extends AbstractMojo {
 		itemAsDom.addChild(MojoExecutor.element("version", dep.getVersion())
 				.toDom());
 		itemAsDom.addChild(MojoExecutor.element("type", dep.getType()).toDom());
-		if (output != null
-				&& dep.getArtifactId().equals(output.getIncludesArtifactId())) {
-			itemAsDom.addChild(MojoExecutor.element("destFileName",
-					output.getOutputFileName()).toDom());
+
+		Xpp3Dom config = MojoExecutor.configuration(
+				MojoExecutor.element("overWriteSnapshots", "true"),
+				MojoExecutor.element("overWriteIfNewer", "true"));
+
+		if (dep.getType().equals("osgi-distribution")) {
+			config.addChild(MojoExecutor.element("outputDirectory",
+					distribDirectory).toDom());
+		} else {
+			if (outputs != null) {
+				// check if there is an output entry for that dependency
+				for (Output output : outputs) {
+					if (dep.getArtifactId().equals(
+							output.getIncludesArtifactId())) {
+						// found a matching
+						foundMatching = true;
+						if (output.getOutputFileName() != null) {
+							itemAsDom.addChild(MojoExecutor.element(
+									"destFileName", output.getOutputFileName())
+									.toDom());
+						}
+						if (output.getDirectory() != null) {
+							config.addChild(MojoExecutor.element(
+									"outputDirectory",
+									distribDirectory + output.getDirectory())
+									.toDom());
+						}
+						// since we cant have 2 outputs for the same dep, break
+						// out of the loop
+						break;
+					}
+				}
+				if (!foundMatching) {
+					config.addChild(MojoExecutor.element("outputDirectory",
+							distribDirectory + "load").toDom());
+				}
+			} else {
+				// default : send all dependencies to load folder
+				config.addChild(MojoExecutor.element("outputDirectory",
+						distribDirectory + "load").toDom());
+			}
 		}
 		items.addChild(itemAsDom);
 		config.addChild(items);
