@@ -55,6 +55,7 @@
                 <artifactId>maven-invoker-plugin</artifactId>
                 <version>1.8</version>
                 <configuration>
+                    <streamLogs>true</streamLogs>
                     <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
                     <localRepositoryPath>${project.build.directory}/local-repository</localRepositoryPath>
                     <goals>
