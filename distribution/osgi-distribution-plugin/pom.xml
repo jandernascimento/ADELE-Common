@@ -1,43 +1,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<parent>
-		<groupId>fr.liglab.adele.common</groupId>
-		<artifactId>parent</artifactId>
-		<version>1.0.0-SNAPSHOT</version>
-		<relativePath></relativePath>
-	</parent>
+    <!-- Project parent -->
+    <parent>
+        <groupId>fr.liglab.adele.common</groupId>
+        <artifactId>commons</artifactId>
+        <version>1.0.4</version>
+        <relativePath>../../commons</relativePath>
+    </parent>
 
+    <!-- Project coordinates -->
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>sample.plugin</groupId>
 	<artifactId>osgi-distribution-plugin</artifactId>
+    <version>1.0.4-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>osgi distribution plugin Maven Mojo</name>
+    <name>${productName} :: ${projectName}</name>
 
 	<repositories>
-		<repository>
-			<id>icasa-snapshot-repository</id>
-			<name>iCASA Snapshot repository</name>
-			<url>https://repository-icasa.forge.cloudbees.com/snapshot/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>icasa-release-repository</id>
-			<name>iCASA Release repository</name>
-			<url>https://repository-icasa.forge.cloudbees.com/release/</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
 		<repository>
 			<id>mojo-executor-repository</id>
 			<name>Mojo Executor Repository for Maven</name>
@@ -68,4 +47,31 @@
 			<version>1.0-alpha-7</version>
 		</dependency>
 	</dependencies>
+
+    <build>
+        <plugins>
+            <!-- Integration test using the invoker plugin -->
+            <plugin>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>1.8</version>
+                <configuration>
+                    <cloneProjectsTo>${project.build.directory}/it</cloneProjectsTo>
+                    <localRepositoryPath>${project.build.directory}/local-repository</localRepositoryPath>
+                    <goals>
+                        <goal>clean</goal>
+                        <goal>package</goal>
+                    </goals>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>install</goal>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
