@@ -72,15 +72,6 @@ public class PrepareMojo extends AbstractMojo {
 		
 		Xpp3Dom config = MojoExecutor.configuration(MojoExecutor.element("outputDirectory", distribDirectory));
 		
-		
-//		Xpp3Dom copy = new Xpp3Dom("copy");
-//		copy.setAttribute("failonerror", Boolean.toString(false));
-//		copy.setAttribute("overwrite", Boolean.toString(true));
-//		copy.setAttribute("todir", distribDirectory);
-//		Xpp3Dom fileset = new Xpp3Dom("fileset");
-//		fileset.setAttribute("dir", project.g);
-		
-		
 		MojoExecutor.executeMojo(
 				MojoExecutor.plugin("org.apache.maven.plugins",
 						"maven-resources-plugin", "2.6"), MojoExecutor

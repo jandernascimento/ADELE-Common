@@ -4,7 +4,7 @@ import java.security.MessageDigest;
 import java.util.zip.ZipFile;
 
 def felixOriginalHash = "3371237ec5b6bf185772e989bc11148f8072a40c";
-def artifactNameWithoutExtension = "target/empty-distrib-1.0-SNAPSHOT"
+def artifactNameWithoutExtension = "target/auto-load-distrib-1.0-SNAPSHOT"
 
 // check the zip distribution
 def dist = new File (basedir, artifactNameWithoutExtension + ".zip");
@@ -24,6 +24,6 @@ try {
 def digest = new String(md.digest());
 assert digest.equals(felixOriginalHash);
 
-assert zipFile.getEntry("bin").isDirectory();
+assert zipFile.getEntry("load") != null;
+assert zipFile.getEntry("load").isDirectory();
 assert zipFile.getEntry("felix.jar") != null;
-
