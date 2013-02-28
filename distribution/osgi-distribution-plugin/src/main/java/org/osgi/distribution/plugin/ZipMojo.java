@@ -109,9 +109,9 @@ public class ZipMojo
         archiver.setDestFile( zipFile );
         archiver.setIncludeEmptyDirs( false );
         archiver.setCompress( true );
-        distribDirectoryFileName = project.getProperties().getProperty("distribDirectory");
-        File distribDirectory = new File(distribDirectoryFileName);
+        File distribDirectory = new File(PrepareMojo.defaultDistribDirectoryPath);
         if (distribDirectory.exists() && distribDirectory.isDirectory()){
+        	this.getLog().info("adding the directory : " + distribDirectory.getAbsolutePath());
         	archiver.addDirectory(distribDirectory, DEFAULT_INCLUDES, DEFAULT_EXCLUDES);
         }
         archiver.createArchive();

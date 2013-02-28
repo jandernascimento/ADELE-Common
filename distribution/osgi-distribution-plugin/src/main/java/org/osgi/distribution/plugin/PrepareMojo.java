@@ -1,6 +1,7 @@
 package org.osgi.distribution.plugin;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
@@ -22,8 +23,10 @@ import org.twdata.maven.mojoexecutor.MojoExecutor;
  */
 public class PrepareMojo extends AbstractMojo {
 
-	protected String distribDirectory;
-
+	public static String defaultDistribDirectoryName = "osgi-distribution";
+	
+	public static String defaultDistribDirectoryPath;
+	
 	/**
 	 * The Maven Project Object
 	 * 
@@ -62,15 +65,32 @@ public class PrepareMojo extends AbstractMojo {
 	 * Execute that mojo.
 	 */
 	public void execute() throws MojoExecutionException {
-		distribDirectory = project.getProperties().getProperty(
-				"distribDirectory");
+			
+		defaultDistribDirectoryPath = this.project.getBuild().getDirectory() + File.separator + defaultDistribDirectoryName;
 		manageDependencies();
 		manageResources();
+		giveRights();
+	}
+
+	/**
+	 * Give executable rights to bat and sh files in distrib directory.
+	 */
+	private void giveRights() {
+
+		File[] filesInDistrib = new File(defaultDistribDirectoryPath).listFiles(new FilenameFilter() {
+			
+			public boolean accept(File dir, String name) {
+				return (name.endsWith(".bat") || !name.contains("."));
+			}
+		});
+		for (File file : filesInDistrib){
+			file.setExecutable(true);
+		}
 	}
 
 	private void manageResources() throws MojoExecutionException {
 		
-		Xpp3Dom config = MojoExecutor.configuration(MojoExecutor.element("outputDirectory", distribDirectory));
+		Xpp3Dom config = MojoExecutor.configuration(MojoExecutor.element("outputDirectory", defaultDistribDirectoryPath));
 		
 		MojoExecutor.executeMojo(
 				MojoExecutor.plugin("org.apache.maven.plugins",
@@ -114,11 +134,11 @@ public class PrepareMojo extends AbstractMojo {
 	private void unzipOsgiDistribution(Dependency dep)
 			throws MojoExecutionException {
 
-		String zipFinalPathName = distribDirectory + File.separator
+		String zipFinalPathName = defaultDistribDirectoryPath + File.separator
 				+ dep.getArtifactId() + "-" + dep.getVersion() + ".zip";
 		Xpp3Dom config = MojoExecutor.configuration(
 				MojoExecutor.element("from", zipFinalPathName),
-				MojoExecutor.element("to", distribDirectory));
+				MojoExecutor.element("to", defaultDistribDirectoryPath));
 
 		MojoExecutor.executeMojo(MojoExecutor.plugin("org.codehaus.mojo",
 				"truezip-maven-plugin", "1.1"), MojoExecutor.goal("cp"),
@@ -154,7 +174,7 @@ public class PrepareMojo extends AbstractMojo {
 
 		if (dep.getType().equals("osgi-distribution")) {
 			config.addChild(MojoExecutor.element("outputDirectory",
-					distribDirectory).toDom());
+					defaultDistribDirectoryPath).toDom());
 		} else {
 			if (outputs != null) {
 				// check if there is an output entry for that dependency
@@ -171,7 +191,7 @@ public class PrepareMojo extends AbstractMojo {
 						if (output.getDirectory() != null) {
 							config.addChild(MojoExecutor.element(
 									"outputDirectory",
-									distribDirectory + output.getDirectory())
+									defaultDistribDirectoryPath +File.separator + output.getDirectory())
 									.toDom());
 						}
 						// since we cant have 2 outputs for the same dep, break
@@ -181,12 +201,12 @@ public class PrepareMojo extends AbstractMojo {
 				}
 				if (!foundMatching) {
 					config.addChild(MojoExecutor.element("outputDirectory",
-							distribDirectory + "load").toDom());
+							defaultDistribDirectoryPath + File.separator + "load").toDom());
 				}
 			} else {
 				// default : send all dependencies to load folder
 				config.addChild(MojoExecutor.element("outputDirectory",
-						distribDirectory + "load").toDom());
+						defaultDistribDirectoryPath + File.separator + "load").toDom());
 			}
 		}
 		items.addChild(itemAsDom);

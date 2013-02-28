@@ -6,10 +6,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>osgi-distribution</packaging>
 
-    <properties>
-        <distribDirectory>${project.build.directory}\osgi-distribution\</distribDirectory>
-    </properties>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.felix</groupId>
