@@ -4,6 +4,7 @@ This is a maven plugin used to generate osgi distributions. These distributions 
 
 An output configuration example :
 
+```xml
  <outputs>
     <output>
         <IncludesArtifactId>org.apache.felix.main</IncludesArtifactId>
@@ -15,6 +16,7 @@ An output configuration example :
         <directory>bundles</directory>
     </output>
 </outputs>
+```
 
 Results in the following :
 
@@ -24,6 +26,7 @@ Results in the following :
 
 Projects using this plugin need to use the "osgi-distribution" packaging type, and call the plugin in their plugins section.
 
+```xml
 <build>
     <plugins>
         <plugin>
@@ -39,5 +42,6 @@ Projects using this plugin need to use the "osgi-distribution" packaging type, a
         </plugin>
     </plugins>
 </build>
-         
+```
+
 To run the plugin, just call the "install" goal on your project.
