@@ -35,6 +35,8 @@ Projects using this plugin need to use the "osgi-distribution" packaging type, a
             <version>@project.version@</version>
             <extensions>true</extensions>
             <configuration>
+                <defaultOutputDirectory>bundle</defaultOutputDirectory>
+                <generateScripts>true</generateScripts>
                 <outputs>
                     ...
                 </outputs>
