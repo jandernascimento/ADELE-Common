@@ -1,7 +1,10 @@
 package org.osgi.distribution.plugin;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.maven.execution.MavenSession;
@@ -24,9 +27,9 @@ import org.twdata.maven.mojoexecutor.MojoExecutor;
 public class PrepareMojo extends AbstractMojo {
 
 	public static String defaultDistribDirectoryName = "osgi-distribution";
-	
+
 	public static String defaultDistribDirectoryPath;
-	
+
 	/**
 	 * The Maven Project Object
 	 * 
@@ -62,14 +65,32 @@ public class PrepareMojo extends AbstractMojo {
 	private List<Output> outputs;
 
 	/**
+	 * Default output directory
+	 * @parameter alias="defaultOutputDirectory" default-value="load"
+	 * 
+	 */
+	private String defaultOutputDirectory;
+
+	/**
+	 * Generate or not starter scripts
+	 * @parameter alias="generateScripts" default-value="false"
+	 * 
+	 */
+	private boolean generateScripts;
+
+	/**
 	 * Execute that mojo.
 	 */
 	public void execute() throws MojoExecutionException {
-			
+
 		defaultDistribDirectoryPath = this.project.getBuild().getDirectory() + File.separator + defaultDistribDirectoryName;
 		manageDependencies();
 		manageResources();
 		giveRights();
+		if (generateScripts) {
+			generateScripts();
+		}
+
 	}
 
 	/**
@@ -78,7 +99,7 @@ public class PrepareMojo extends AbstractMojo {
 	private void giveRights() {
 
 		File[] filesInDistrib = new File(defaultDistribDirectoryPath).listFiles(new FilenameFilter() {
-			
+
 			public boolean accept(File dir, String name) {
 				return (name.endsWith(".bat") || !name.contains("."));
 			}
@@ -88,16 +109,61 @@ public class PrepareMojo extends AbstractMojo {
 		}
 	}
 
+
+	private void generateScripts(){
+		generateScriptFile(generateWinScriptContent(), "start.bat");
+		generateScriptFile(generateUnixScriptContent(), "start.sh");
+	}
+	
+	private String generateWinScriptContent(){
+		StringBuilder content = new StringBuilder();
+		content.append("cd ");
+		content.append(this.project.getBuild().getDirectory()).append( File.separator).append( defaultDistribDirectoryName);
+		content.append('\n');
+		content.append("java -jar bin\felix.jar");
+		return content.toString();
+	}
+	/**
+	 * Generate unix script files, useful on build.
+	 */
+	private String generateUnixScriptContent() {
+		StringBuilder content = new StringBuilder("#!/usr/bin/env sh\n");
+		content.append("cd ");
+		content.append(this.project.getBuild().getDirectory()).append( File.separator).append( defaultDistribDirectoryName);
+		content.append('\n');
+		content.append("exec java -jar bin/felix.jar");
+		return content.toString();
+	}
+
+	private void generateScriptFile(String content, String filename){
+		try{
+			File file = new File(filename);
+			// if file doesnt exists, then create it
+			if (!file.exists()) {
+				file.createNewFile();
+				file.setExecutable(true);
+			}
+
+			FileWriter fw = new FileWriter(file.getAbsoluteFile());
+			BufferedWriter bw = new BufferedWriter(fw);
+			bw.write(content);
+			bw.close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
 	private void manageResources() throws MojoExecutionException {
-		
+
 		Xpp3Dom config = MojoExecutor.configuration(MojoExecutor.element("outputDirectory", defaultDistribDirectoryPath));
-		
+
 		MojoExecutor.executeMojo(
 				MojoExecutor.plugin("org.apache.maven.plugins",
 						"maven-resources-plugin", "2.6"), MojoExecutor
 						.goal("resources"), config, MojoExecutor
 						.executionEnvironment(project, session, pluginManager));
-		
+
 	}
 
 	/**
@@ -201,12 +267,12 @@ public class PrepareMojo extends AbstractMojo {
 				}
 				if (!foundMatching) {
 					config.addChild(MojoExecutor.element("outputDirectory",
-							defaultDistribDirectoryPath + File.separator + "load").toDom());
+							defaultDistribDirectoryPath + File.separator + defaultOutputDirectory).toDom());
 				}
 			} else {
-				// default : send all dependencies to load folder
+				// default : send all dependencies to <defaultOutputDirectory> folder (default value is "load").
 				config.addChild(MojoExecutor.element("outputDirectory",
-						defaultDistribDirectoryPath + File.separator + "load").toDom());
+						defaultDistribDirectoryPath + File.separator + defaultOutputDirectory).toDom());
 			}
 		}
 		items.addChild(itemAsDom);
