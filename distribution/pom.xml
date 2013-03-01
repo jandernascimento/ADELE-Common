@@ -30,7 +30,6 @@
 
 	<modules>
         <module>osgi-distribution-plugin</module>
-        <module>config-base</module>
 		<module>minimal</module>
 		<module>base</module>
 	</modules>

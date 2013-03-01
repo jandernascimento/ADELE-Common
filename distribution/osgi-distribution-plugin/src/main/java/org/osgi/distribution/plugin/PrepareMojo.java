@@ -111,8 +111,11 @@ public class PrepareMojo extends AbstractMojo {
 
 
 	private void generateScripts(){
-		generateScriptFile(generateWinScriptContent(), "start.bat");
-		generateScriptFile(generateUnixScriptContent(), "start.sh");
+		
+		String winpath = this.project.getBasedir() + File.separator + "start.bat";
+		String unixpath = this.project.getBasedir()+ File.separator + "start.sh";
+		generateScriptFile(generateWinScriptContent(), winpath);
+		generateScriptFile(generateUnixScriptContent(), unixpath);
 	}
 	
 	private String generateWinScriptContent(){
