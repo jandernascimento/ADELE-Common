@@ -33,8 +33,11 @@ Projects using this plugin need to use the "osgi-distribution" packaging type, a
             <groupId>fr.liglab.adele.common</groupId>
             <artifactId>osgi-distribution-plugin</artifactId>
             <version>@project.version@</version>
+            <directory>bundles</directory>
             <extensions>true</extensions>
             <configuration>
+                <defaultOutputDirectory>bundle</defaultOutputDirectory>
+                <generateScripts>true</generateScripts>
                 <outputs>
                     ...
                 </outputs>
