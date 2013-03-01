@@ -10,6 +10,7 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.plexus.archiver.ArchiverException;
 import org.codehaus.plexus.archiver.zip.ZipArchiver;
+import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Zip all pom resources content in a .zip file
@@ -22,6 +23,13 @@ public class ZipMojo
     extends AbstractMojo
 {
 
+	/** 
+	 * @parameter expression="${project.artifactId}"
+	 */
+	protected String defaultDistribDirectoryName;
+	
+	public String defaultDistribDirectoryPath;
+	
     /**
      * The maven project.
      *
@@ -31,7 +39,6 @@ public class ZipMojo
      */
     private MavenProject project;
     
-    private String distribDirectoryFileName;
     
     public static final String[] DEFAULT_EXCLUDES = { 
         // Miscellaneous typical temporary files 
@@ -77,6 +84,8 @@ public class ZipMojo
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
+    	defaultDistribDirectoryPath = this.project.getBuild().getDirectory() + File.separator + defaultDistribDirectoryName;
+    	
         if ( this.getLog().isDebugEnabled() )
         {
             this.getLog()
@@ -106,18 +115,33 @@ public class ZipMojo
         File zipFile = new File( this.getProject().getBuild().getDirectory(), this.getProject().getBuild().getFinalName()
             + ".zip" );
         ZipArchiver archiver = new ZipArchiver();
+        
         archiver.setDestFile( zipFile );
-        archiver.setIncludeEmptyDirs( false );
+        archiver.setIncludeEmptyDirs( true );
         archiver.setCompress( true );
-        File distribDirectory = new File(PrepareMojo.defaultDistribDirectoryPath);
+        File distribDirectory = createTemporalDirectory() ;
+        //createTemporalDirectory() ;
         if (distribDirectory.exists() && distribDirectory.isDirectory()){
         	this.getLog().info("adding the directory : " + distribDirectory.getAbsolutePath());
+        	
         	archiver.addDirectory(distribDirectory, DEFAULT_INCLUDES, DEFAULT_EXCLUDES);
         }
         archiver.createArchive();
         getProject().getArtifact().setFile( zipFile );
     }
 
+    private File createTemporalDirectory() throws IOException{
+    	String distrib_temp = this.project.getBuild().getDirectory() + File.separator + "distrib-temp" ;
+    	String distrib_temp2 = distrib_temp +  File.separator + defaultDistribDirectoryName;
+    	
+    	FileUtils.mkdir(distrib_temp);
+    	FileUtils.mkdir(distrib_temp2);
+    	File distrib = new File(defaultDistribDirectoryPath);
+    	File tempDistrib = new File(distrib_temp2);
+		FileUtils.copyDirectoryStructure(distrib, tempDistrib);
+		return new File (distrib_temp);
+    }
+    
     public MavenProject getProject()
     {
         return project;

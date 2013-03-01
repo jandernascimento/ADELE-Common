@@ -13,6 +13,7 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.BuildPluginManager;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.codehaus.plexus.util.FileUtils;
 import org.codehaus.plexus.util.xml.Xpp3Dom;
 import org.twdata.maven.mojoexecutor.MojoExecutor;
 
@@ -26,9 +27,12 @@ import org.twdata.maven.mojoexecutor.MojoExecutor;
  */
 public class PrepareMojo extends AbstractMojo {
 
-	public static String defaultDistribDirectoryName = "osgi-distribution";
+	/** 
+	 * @parameter expression="${project.artifactId}"
+	 */
+	protected String defaultDistribDirectoryName;
 
-	public static String defaultDistribDirectoryPath;
+	public String defaultDistribDirectoryPath;
 
 	/**
 	 * The Maven Project Object
@@ -84,7 +88,11 @@ public class PrepareMojo extends AbstractMojo {
 	public void execute() throws MojoExecutionException {
 
 		defaultDistribDirectoryPath = this.project.getBuild().getDirectory() + File.separator + defaultDistribDirectoryName;
-		manageDependencies();
+		try {
+			manageDependencies();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		manageResources();
 		giveRights();
 		if (generateScripts) {
@@ -173,8 +181,9 @@ public class PrepareMojo extends AbstractMojo {
 	 * gather dependencies as dom element.
 	 * 
 	 * @throws MojoExecutionException
+	 * @throws IOException 
 	 */
-	private void manageDependencies() throws MojoExecutionException {
+	private void manageDependencies() throws MojoExecutionException, IOException {
 		List<Dependency> dependencies = project.getDependencies();
 
 		if (dependencies != null) {
@@ -199,20 +208,27 @@ public class PrepareMojo extends AbstractMojo {
 	 * 
 	 * @param dep
 	 * @throws MojoExecutionException
+	 * @throws IOException 
 	 */
 	private void unzipOsgiDistribution(Dependency dep)
-			throws MojoExecutionException {
+			throws MojoExecutionException, IOException {
 
+		String temporalDependencyPath = this.project.getBuild().getDirectory();
+		
 		String zipFinalPathName = defaultDistribDirectoryPath + File.separator
 				+ dep.getArtifactId() + "-" + dep.getVersion() + ".zip";
 		Xpp3Dom config = MojoExecutor.configuration(
 				MojoExecutor.element("from", zipFinalPathName),
-				MojoExecutor.element("to", defaultDistribDirectoryPath));
+				MojoExecutor.element("to", temporalDependencyPath));
 
 		MojoExecutor.executeMojo(MojoExecutor.plugin("org.codehaus.mojo",
 				"truezip-maven-plugin", "1.1"), MojoExecutor.goal("cp"),
 				config, MojoExecutor.executionEnvironment(project, session,
 						pluginManager));
+		File temporal = new File(temporalDependencyPath + File.separator
+				+ dep.getArtifactId() );
+		FileUtils.copyDirectoryStructure(temporal, new File(defaultDistribDirectoryPath));
+		temporal.delete();
 	}
 
 	/**
