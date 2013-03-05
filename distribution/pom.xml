@@ -29,7 +29,6 @@
 	<name>${productName} :: ${projectName}</name>
 
 	<modules>
-        <module>osgi-distribution-plugin</module>
 		<module>minimal</module>
 		<module>base</module>
 	</modules>

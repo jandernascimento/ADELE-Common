@@ -30,6 +30,10 @@ limitations under the License.
     <artifactId>distribution.minimal.base</artifactId>
     <packaging>osgi-distribution</packaging>
     <name>${productName} :: ${projectName}</name>
+    
+    <properties>
+       <pluginVersion>1.0.0-SNAPSHOT</pluginVersion>
+    </properties>
          
          <!-- Project dependencies -->
     <dependencies>
@@ -94,7 +98,7 @@ limitations under the License.
                   <plugin>
                      <groupId>fr.liglab.adele.common</groupId>
                      <artifactId>osgi-distribution-plugin</artifactId>
-                     <version>${project.version}</version>
+                     <version>${pluginVersion}</version>
                      <extensions>true</extensions>
                      <configuration>
                         <defaultOutputDirectory>bundle</defaultOutputDirectory>
