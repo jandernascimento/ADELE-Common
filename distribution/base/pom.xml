@@ -99,10 +99,6 @@
      </dependency>
      <dependency>
         <groupId>de.akquinet.gomobile</groupId>
-        <artifactId>deployment-package-api</artifactId>
-     </dependency>
-     <dependency>
-        <groupId>de.akquinet.gomobile</groupId>
         <artifactId>autoconf-resource-processor</artifactId>
      </dependency>
      <dependency>
