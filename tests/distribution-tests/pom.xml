@@ -12,35 +12,37 @@
  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  See the License for the specific language governing permissions and
  limitations under the License.
---><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<!-- Project parent -->
 	<parent>
 		<groupId>fr.liglab.adele.common</groupId>
-		<artifactId>base</artifactId>
-		<version>1.0.4-SNAPSHOT</version>
-		<relativePath>../base</relativePath>
+      <artifactId>base</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
+      <relativePath>../../base</relativePath>
 	</parent>
 
 	<!-- Project Descrkiption -->
 	<modelVersion>4.0.0</modelVersion>
-	<artifactId>tests</artifactId>
+	<artifactId>distribution.tests</artifactId>
 	<packaging>pom</packaging>
 	<name>${productName} :: ${projectName}</name>
 
 	<modules>
-      <!--<module>distribution-tests</module>
-		<module>test-pojosr</module>
-      <module>test-pojosr-example</module>-->
+      <module>distribution-factory</module>
+      <module>distribution-test-base</module>
 	</modules>
-   <build>
-      <plugins>
-         <plugin>
-            <artifactId>maven-deploy-plugin</artifactId>
-            <configuration>
-               <skip>true</skip>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+
+	<build>
+		<plugins>
+               <plugin>
+                  <artifactId>maven-deploy-plugin</artifactId>
+                  <configuration>
+                     <skip>true</skip>
+                  </configuration>
+               </plugin>
+		</plugins>
+	</build>
+   
 </project>

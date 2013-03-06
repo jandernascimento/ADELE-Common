@@ -314,7 +314,11 @@
             <artifactId>org.apache.felix.main</artifactId>
             <version>${felixVersion}</version>
          </dependency>
-
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+            <version>${felixVersion}</version>
+         </dependency>
          <!-- Servlet 2.5 API -->
          <dependency>
             <groupId>javax.servlet</groupId>
@@ -613,7 +617,11 @@
                <artifactId>testng</artifactId>
                <version>${testngVersion}</version>
             </dependency>
-
+            <dependency>
+               <groupId>junit</groupId>
+               <artifactId>junit</artifactId>
+               <version>4.8.2</version>
+            </dependency>
       </dependencies>
    </dependencyManagement>
 

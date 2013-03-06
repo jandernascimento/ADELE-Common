@@ -21,9 +21,9 @@ limitations under the License.
          <!-- Project parent -->
    <parent>
       <groupId>fr.liglab.adele.common</groupId>
-      <artifactId>commons</artifactId>
-      <version>1.0.5-SNAPSHOT</version>
-      <relativePath>../../commons</relativePath>
+      <artifactId>base</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
+      <relativePath>../../base</relativePath>
     </parent>
          
          <!-- Project coordinates -->

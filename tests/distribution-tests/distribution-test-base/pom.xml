@@ -1,0 +1,137 @@
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+      <groupId>fr.liglab.adele.common</groupId>
+      <artifactId>base</artifactId>
+      <version>1.0.4-SNAPSHOT</version>
+      <relativePath>../../../base</relativePath>
+	</parent>
+
+	<artifactId>base.distribution.test</artifactId>
+   <groupId>fr.liglab.adele.common</groupId>
+   <version>1.0.4-SNAPSHOT</version>
+   <name>${productName} :: Distribution Test Base</name>
+
+	<properties>
+		<exam.version>3.0.0</exam.version>
+		<url.version>1.5.2</url.version>
+      <distrib.groupId>fr.liglab.adele.common</distrib.groupId>
+      <distrib.artifactId>distribution.base</distrib.artifactId>
+      <distrib.version>1.0.4-SNAPSHOT</distrib.version>
+       
+      <!--
+         <distrib.groupId>fr.liglab.adele.cilia</distrib.groupId>
+         <distrib.artifactId>cilia-distribution</distrib.artifactId>
+         <distrib.version>1.6.4-SNAPSHOT</distrib.version>
+         --> 
+	</properties>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.ops4j.pax.exam</groupId>
+			<artifactId>pax-exam-container-native</artifactId>
+			<version>${exam.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ops4j.pax.exam</groupId>
+			<artifactId>pax-exam-junit4</artifactId>
+			<version>${exam.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ops4j.pax.exam</groupId>
+			<artifactId>pax-exam-link-mvn</artifactId>
+			<version>${exam.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ops4j.pax.url</groupId>
+			<artifactId>pax-url-aether</artifactId>
+			<version>${url.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+         <version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<!--<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.framework</artifactId>
+         <version>4.0.3</version>
+			<scope>test</scope>
+		</dependency>-->
+
+
+      <!-- Distribution to test-->
+		<dependency>
+			<groupId>${distrib.groupId}</groupId>
+			<artifactId>${distrib.artifactId}</artifactId>
+			<version>${distrib.version}</version>
+         <type>osgi-distribution</type>
+		</dependency>
+
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-log4j12</artifactId>
+         <version>1.6.4</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>org.slf4j</groupId>
+         <artifactId>slf4j-api</artifactId>
+         <version>1.6.4</version>
+         <scope>test</scope>
+      </dependency>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>distribution.factory</artifactId>
+         <version>${project.version}</version>
+      </dependency>
+	</dependencies>
+
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.2</version>
+				<executions>
+					<execution>
+						<id>unpack-distrib</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>unpack-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeGroupIds>${distrib.groupId}</includeGroupIds>
+							<includeArtifactIds>${distrib.artifactId}</includeArtifactIds>
+							<outputDirectory>${project.build.directory}/distribution</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+         <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <configuration>
+                     <source>1.5</source>
+                     <target>1.5</target>
+                  </configuration>
+               </plugin>
+		</plugins>
+	</build>
+</project>
