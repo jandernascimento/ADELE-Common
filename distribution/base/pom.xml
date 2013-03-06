@@ -126,6 +126,7 @@
            <version>${pluginVersion}</version>
            <extensions>true</extensions>
            <configuration>
+              <defaultOutputDirectory>bundle</defaultOutputDirectory>
               <generateScripts>true</generateScripts>
            </configuration>
         </plugin>
