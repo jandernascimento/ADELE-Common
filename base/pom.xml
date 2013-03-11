@@ -30,6 +30,7 @@
       <!-- ADELE Projects -->
       <roseVersion>1.0.2</roseVersion>
 
+      <osgiDistribPlugin>1.0.0-SNAPSHOT</osgiDistribPlugin>
       <!-- Common dependencies -->
       <!-- iPOJO -->
       <iPojoVersion>1.8.2</iPojoVersion>
@@ -845,6 +846,11 @@
                <groupId>de.akquinet.gomobile</groupId>
                <artifactId>maven-dp-plugin</artifactId>
                <version>${deploymentPackageVersion}</version>
+            </extension>
+            <extension>
+               <groupId>fr.liglab.adele.common</groupId>
+               <artifactId>osgi-distribution-plugin</artifactId>
+               <version>${osgiDistribPlugin}</version>
             </extension>
       </extensions>
 
