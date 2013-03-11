@@ -66,6 +66,10 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 		configProps.put("felix.auto.deploy.action", "install, start");
 		try {
 			configProps.put("felix.fileinstall.dir", getLoadFolder());
+		} catch (IOException e1) {
+
+		}
+		try {
 			configProps.put("felix.auto.deploy.dir", getBundleFolder());
 		} catch (IOException e) {
 			e.printStackTrace();
