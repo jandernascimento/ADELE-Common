@@ -15,22 +15,17 @@
 package fr.liglab.adele.icasa.distributions.test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Dictionary;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.felix.framework.Felix;
-import org.apache.felix.main.Main;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.ServiceReference;
-import org.osgi.framework.Version;
+import org.apache.felix.framework.util.Util;
 import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 
@@ -39,6 +34,38 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 	private String BUNDLESDIR = "/bundle/";
 	private String LOADDIR = "/load/";
 	private String ROOTDIR = "./target/distribution/";
+	 /**
+     * Switch for specifying bundle directory.
+    **/
+    public static final String BUNDLE_DIR_SWITCH = "-b";
+
+    /**
+     * The property name used to specify whether the launcher should
+     * install a shutdown hook.
+    **/
+    public static final String SHUTDOWN_HOOK_PROP = "felix.shutdown.hook";
+    /**
+     * The property name used to specify an URL to the system
+     * property file.
+    **/
+    public static final String SYSTEM_PROPERTIES_PROP = "felix.system.properties";
+    /**
+     * The default name used for the system properties file.
+    **/
+    public static final String SYSTEM_PROPERTIES_FILE_VALUE = "system.properties";
+    /**
+     * The property name used to specify an URL to the configuration
+     * property file to be used for the created the framework instance.
+    **/
+    public static final String CONFIG_PROPERTIES_PROP = "felix.config.properties";
+    /**
+     * The default name used for the configuration properties file.
+    **/
+    public static final String CONFIG_PROPERTIES_FILE_VALUE = "config.properties";
+    /**
+     * Name of the configuration directory.
+     */
+    public static final String CONFIG_DIRECTORY = "conf";
 
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.launch.FrameworkFactory#newFramework(java.util.Map)
@@ -46,22 +73,22 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 	@Override
 	public Framework newFramework(Map configuration) {
 		// Load system properties.
-		Main.loadSystemProperties();
+		loadSystemProperties();
 
 		// Read configuration properties.
-		Properties configProps = Main.loadConfigProperties();
+		Map configProps = loadConfigProperties();
 
 		// If no configuration properties were found, then create
 		// an empty properties object.
 		if (configProps == null)
 		{
-			System.err.println("No " + Main.CONFIG_PROPERTIES_FILE_VALUE + " found.");
+			System.err.println("No " + CONFIG_PROPERTIES_FILE_VALUE + " found.");
 			configProps = new Properties();
 		}
 
 
 		// Copy framework properties from the system properties.
-		Main.copySystemProperties(configProps);
+		copySystemProperties(configProps);
 		configProps.putAll(configuration);
 		configProps.put("felix.auto.deploy.action", "install, start");
 		try {
@@ -146,233 +173,222 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 		throw new IOException("Unable to locate root directory in: " + root.getName());
 	}
 
-	private class DistributionTestFramework implements Framework {
+	 public static void loadSystemProperties()
+	    {
+	        // The system properties file is either specified by a system
+	        // property or it is in the same directory as the Felix JAR file.
+	        // Try to load it from one of these places.
 
-		Framework _fwk = null;
+	        // See if the property URL was specified as a property.
+	        URL propURL = null;
+	        String custom = System.getProperty(SYSTEM_PROPERTIES_PROP);
+	        if (custom != null)
+	        {
+	            try
+	            {
+	                propURL = new URL(custom);
+	            }
+	            catch (MalformedURLException ex)
+	            {
+	                System.err.print("Main: " + ex);
+	                return;
+	            }
+	        }
+	        else
+	        {
+	            // Determine where the configuration directory is by figuring
+	            // out where felix.jar is located on the system class path.
+	            File confDir = null;
+	            String classpath = System.getProperty("java.class.path");
+	            int index = classpath.toLowerCase().indexOf("felix.jar");
+	            int start = classpath.lastIndexOf(File.pathSeparator, index) + 1;
+	            if (index >= start)
+	            {
+	                // Get the path of the felix.jar file.
+	                String jarLocation = classpath.substring(start, index);
+	                // Calculate the conf directory based on the parent
+	                // directory of the felix.jar directory.
+	                confDir = new File(
+	                    new File(new File(jarLocation).getAbsolutePath()).getParent(),
+	                    CONFIG_DIRECTORY);
+	            }
+	            else
+	            {
+	                // Can't figure it out so use the current directory as default.
+	                confDir = new File(System.getProperty("user.dir"), CONFIG_DIRECTORY);
+	            }
 
-		Map felixConfiguration = new HashMap();
+	            try
+	            {
+	                propURL = new File(confDir, SYSTEM_PROPERTIES_FILE_VALUE).toURL();
+	            }
+	            catch (MalformedURLException ex)
+	            {
+	                System.err.print("Main: " + ex);
+	                return;
+	            }
+	        }
 
-		private DistributionTestFramework(Map configuration){
-			felixConfiguration.putAll(configuration);
-			_fwk = new Felix(felixConfiguration);
-		}
-		/**
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#init()
-		 */
-		public void init() throws BundleException {
-			_fwk.init();
-			AutoProcessor.process(felixConfiguration, _fwk.getBundleContext());
-		}
-		/**
-		 * @param timeout
-		 * @return
-		 * @throws InterruptedException
-		 * @see org.osgi.framework.launch.Framework#waitForStop(long)
-		 */
-		public FrameworkEvent waitForStop(long timeout)
-				throws InterruptedException {
-			return _fwk.waitForStop(timeout);
-		}
-		/**
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#start()
-		 */
-		public void start() throws BundleException {
-			_fwk.start();
-		}
-		/**
-		 * @param options
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#start(int)
-		 */
-		public void start(int options) throws BundleException {
-			_fwk.start(options);
-		}
-		/**
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#stop()
-		 */
-		public void stop() throws BundleException {
-			_fwk.stop();
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getState()
-		 */
-		public int getState() {
-			return _fwk.getState();
-		}
-		/**
-		 * @param options
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#stop(int)
-		 */
-		public void stop(int options) throws BundleException {
-			_fwk.stop(options);
-		}
-		/**
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#uninstall()
-		 */
-		public void uninstall() throws BundleException {
-			_fwk.uninstall();
-		}
-		/**
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#update()
-		 */
-		public void update() throws BundleException {
-			_fwk.update();
-		}
-		/**
-		 * @param in
-		 * @throws BundleException
-		 * @see org.osgi.framework.launch.Framework#update(java.io.InputStream)
-		 */
-		public void update(InputStream in) throws BundleException {
-			_fwk.update(in);
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.launch.Framework#getBundleId()
-		 */
-		public long getBundleId() {
-			return _fwk.getBundleId();
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.launch.Framework#getLocation()
-		 */
-		public String getLocation() {
-			return _fwk.getLocation();
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.launch.Framework#getSymbolicName()
-		 */
-		public String getSymbolicName() {
-			return _fwk.getSymbolicName();
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getHeaders()
-		 */
-		public Dictionary getHeaders() {
-			return _fwk.getHeaders();
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getRegisteredServices()
-		 */
-		public ServiceReference[] getRegisteredServices() {
-			return _fwk.getRegisteredServices();
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getServicesInUse()
-		 */
-		public ServiceReference[] getServicesInUse() {
-			return _fwk.getServicesInUse();
-		}
-		/**
-		 * @param permission
-		 * @return
-		 * @see org.osgi.framework.Bundle#hasPermission(java.lang.Object)
-		 */
-		public boolean hasPermission(Object permission) {
-			return _fwk.hasPermission(permission);
-		}
-		/**
-		 * @param name
-		 * @return
-		 * @see org.osgi.framework.Bundle#getResource(java.lang.String)
-		 */
-		public URL getResource(String name) {
-			return _fwk.getResource(name);
-		}
-		/**
-		 * @param locale
-		 * @return
-		 * @see org.osgi.framework.Bundle#getHeaders(java.lang.String)
-		 */
-		public Dictionary getHeaders(String locale) {
-			return _fwk.getHeaders(locale);
-		}
-		/**
-		 * @param name
-		 * @return
-		 * @throws ClassNotFoundException
-		 * @see org.osgi.framework.Bundle#loadClass(java.lang.String)
-		 */
-		public Class loadClass(String name) throws ClassNotFoundException {
-			return _fwk.loadClass(name);
-		}
-		/**
-		 * @param name
-		 * @return
-		 * @throws IOException
-		 * @see org.osgi.framework.Bundle#getResources(java.lang.String)
-		 */
-		public Enumeration getResources(String name) throws IOException {
-			return _fwk.getResources(name);
-		}
-		/**
-		 * @param path
-		 * @return
-		 * @see org.osgi.framework.Bundle#getEntryPaths(java.lang.String)
-		 */
-		public Enumeration getEntryPaths(String path) {
-			return _fwk.getEntryPaths(path);
-		}
-		/**
-		 * @param path
-		 * @return
-		 * @see org.osgi.framework.Bundle#getEntry(java.lang.String)
-		 */
-		public URL getEntry(String path) {
-			return _fwk.getEntry(path);
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getLastModified()
-		 */
-		public long getLastModified() {
-			return _fwk.getLastModified();
-		}
-		/**
-		 * @param path
-		 * @param filePattern
-		 * @param recurse
-		 * @return
-		 * @see org.osgi.framework.Bundle#findEntries(java.lang.String, java.lang.String, boolean)
-		 */
-		public Enumeration findEntries(String path, String filePattern,
-				boolean recurse) {
-			return _fwk.findEntries(path, filePattern, recurse);
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getBundleContext()
-		 */
-		public BundleContext getBundleContext() {
-			return _fwk.getBundleContext();
-		}
-		/**
-		 * @param signersType
-		 * @return
-		 * @see org.osgi.framework.Bundle#getSignerCertificates(int)
-		 */
-		public Map getSignerCertificates(int signersType) {
-			return _fwk.getSignerCertificates(signersType);
-		}
-		/**
-		 * @return
-		 * @see org.osgi.framework.Bundle#getVersion()
-		 */
-		public Version getVersion() {
-			return _fwk.getVersion();
-		}
+	        // Read the properties file.
+	        Properties props = new Properties();
+	        InputStream is = null;
+	        try
+	        {
+	            is = propURL.openConnection().getInputStream();
+	            props.load(is);
+	            is.close();
+	        }
+	        catch (FileNotFoundException ex)
+	        {
+	            // Ignore file not found.
+	        }
+	        catch (Exception ex)
+	        {
+	            System.err.println(
+	                "Main: Error loading system properties from " + propURL);
+	            System.err.println("Main: " + ex);
+	            try
+	            {
+	                if (is != null) is.close();
+	            }
+	            catch (IOException ex2)
+	            {
+	                // Nothing we can do.
+	            }
+	            return;
+	        }
 
+	        // Perform variable substitution on specified properties.
+	        for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+	        {
+	            String name = (String) e.nextElement();
+	            System.setProperty(name,
+	                Util.substVars(props.getProperty(name), name, null, null));
+	        }
+	    }
+
+	    /**
+	     * <p>
+	     * Loads the configuration properties in the configuration property file
+	     * associated with the framework installation; these properties
+	     * are accessible to the framework and to bundles and are intended
+	     * for configuration purposes. By default, the configuration property
+	     * file is located in the <tt>conf/</tt> directory of the Felix
+	     * installation directory and is called "<tt>config.properties</tt>".
+	     * The installation directory of Felix is assumed to be the parent
+	     * directory of the <tt>felix.jar</tt> file as found on the system class
+	     * path property. The precise file from which to load configuration
+	     * properties can be set by initializing the "<tt>felix.config.properties</tt>"
+	     * system property to an arbitrary URL.
+	     * </p>
+	     * @return A <tt>Properties</tt> instance or <tt>null</tt> if there was an error.
+	    **/
+	    public static Map<String, String> loadConfigProperties()
+	    {
+	        // The config properties file is either specified by a system
+	        // property or it is in the conf/ directory of the Felix
+	        // installation directory.  Try to load it from one of these
+	        // places.
+
+	        // See if the property URL was specified as a property.
+	        URL propURL = null;
+	        String custom = System.getProperty(CONFIG_PROPERTIES_PROP);
+	        if (custom != null)
+	        {
+	            try
+	            {
+	                propURL = new URL(custom);
+	            }
+	            catch (MalformedURLException ex)
+	            {
+	                System.err.print("Main: " + ex);
+	                return null;
+	            }
+	        }
+	        else
+	        {
+	            // Determine where the configuration directory is by figuring
+	            // out where felix.jar is located on the system class path.
+	            File confDir = null;
+	            String classpath = System.getProperty("java.class.path");
+	            int index = classpath.toLowerCase().indexOf("felix.jar");
+	            int start = classpath.lastIndexOf(File.pathSeparator, index) + 1;
+	            if (index >= start)
+	            {
+	                // Get the path of the felix.jar file.
+	                String jarLocation = classpath.substring(start, index);
+	                // Calculate the conf directory based on the parent
+	                // directory of the felix.jar directory.
+	                confDir = new File(
+	                    new File(new File(jarLocation).getAbsolutePath()).getParent(),
+	                    CONFIG_DIRECTORY);
+	            }
+	            else
+	            {
+	                // Can't figure it out so use the current directory as default.
+	                confDir = new File(System.getProperty("user.dir"), CONFIG_DIRECTORY);
+	            }
+
+	            try
+	            {
+	                propURL = new File(confDir, CONFIG_PROPERTIES_FILE_VALUE).toURL();
+	            }
+	            catch (MalformedURLException ex)
+	            {
+	                System.err.print("Main: " + ex);
+	                return null;
+	            }
+	        }
+
+	        // Read the properties file.
+	        Properties props = new Properties();
+	        InputStream is = null;
+	        try
+	        {
+	            // Try to load config.properties.
+	            is = propURL.openConnection().getInputStream();
+	            props.load(is);
+	            is.close();
+	        }
+	        catch (Exception ex)
+	        {
+	            // Try to close input stream if we have one.
+	            try
+	            {
+	                if (is != null) is.close();
+	            }
+	            catch (IOException ex2)
+	            {
+	                // Nothing we can do.
+	            }
+
+	            return null;
+	        }
+
+	        // Perform variable substitution for system properties and
+	        // convert to dictionary.
+	        Map<String, String> map = new HashMap<String, String>();
+	        for (Enumeration e = props.propertyNames(); e.hasMoreElements(); )
+	        {
+	            String name = (String) e.nextElement();
+	            map.put(name,
+	                Util.substVars(props.getProperty(name), name, null, props));
+	        }
+
+	        return map;
+	    }
+
+	    public static void copySystemProperties(Map configProps)
+	    {
+	        for (Enumeration e = System.getProperties().propertyNames();
+	             e.hasMoreElements(); )
+	        {
+	            String key = (String) e.nextElement();
+	            if (key.startsWith("felix.") || key.startsWith("org.osgi.framework."))
+	            {
+	                configProps.put(key, System.getProperty(key));
+	            }
+	        }
+	    }
+	
 	}
-}
