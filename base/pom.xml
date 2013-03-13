@@ -822,6 +822,15 @@
                   <artifactId>maven-failsafe-plugin</artifactId>
                   <version>${failsafePluginVersion}</version>
                </plugin>
+               <plugin>
+                  <groupId>fr.liglab.adele.common</groupId>
+                  <artifactId>maven-osgi-distribution-plugin</artifactId>
+                  <version>${osgiDistribPlugin}</version>
+                  <extensions>true</extensions>
+                  <configuration>
+                     <generateScripts>true</generateScripts>
+                  </configuration>
+               </plugin>
          </plugins>
       </pluginManagement>
 
@@ -849,7 +858,7 @@
             </extension>
             <extension>
                <groupId>fr.liglab.adele.common</groupId>
-               <artifactId>osgi-distribution-plugin</artifactId>
+               <artifactId>maven-osgi-distribution-plugin</artifactId>
                <version>${osgiDistribPlugin}</version>
             </extension>
       </extensions>
