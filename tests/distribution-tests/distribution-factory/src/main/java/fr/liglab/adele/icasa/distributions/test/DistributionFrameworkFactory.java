@@ -73,6 +73,7 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 	@Override
 	public Framework newFramework(Map configuration) {
 		// Load system properties.
+		System.out.println("[INFO] initializing Distribution Test Framework");
 		loadSystemProperties();
 
 		// Read configuration properties.

@@ -9,10 +9,9 @@
 		<version>1.0.4-SNAPSHOT</version>
 		<relativePath>../../../base</relativePath>
 	</parent>
-
-	<artifactId>base.distribution.test</artifactId>
-	<groupId>fr.liglab.adele.common</groupId>
-	<version>1.0.4-SNAPSHOT</version>
+   <groupId>fr.liglab.adele.common</groupId>
+   <version>1.0.4-SNAPSHOT</version>
+   <artifactId>base.distribution.test</artifactId>
 	<name>${productName} :: Distribution Test Base</name>
 	<packaging>jar</packaging>
 
@@ -21,13 +20,14 @@
 		<exam.version>3.0.0</exam.version>
 		<url.version>1.5.2</url.version>
 		<distrib.groupId>fr.liglab.adele.common</distrib.groupId>
-		<distrib.artifactId>distribution.base</distrib.artifactId>
+      <distrib.artifactId>distribution.base</distrib.artifactId>
 		<distrib.version>1.0.4-SNAPSHOT</distrib.version>
  
 	</properties>
 
 	<dependencies>
 
+      
 		<dependency>
 			<groupId>org.ops4j.pax.exam</groupId>
 			<artifactId>pax-exam-container-native</artifactId>
@@ -62,19 +62,14 @@
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
-		<!--<dependency> <groupId>org.apache.felix</groupId> <artifactId>org.apache.felix.framework</artifactId> 
-			<version>4.0.3</version> <scope>test</scope> </dependency> -->
-
-
 		<!-- Distribution to test -->
 		<dependency>
 			<groupId>${distrib.groupId}</groupId>
 			<artifactId>${distrib.artifactId}</artifactId>
 			<version>${distrib.version}</version>
 			<type>osgi-distribution</type>
-			<scope>test</scope>
+         <scope>test</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
@@ -85,12 +80,18 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>distribution.factory</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
+      <dependency>
+         <groupId>${project.groupId}</groupId>
+         <artifactId>distribution.factory</artifactId>
+         <version>${project.version}</version>
+         <exclusions>
+         <exclusion>
+            <!-- declare the exclusion here -->
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.framework</artifactId>
+         </exclusion>
+      </exclusions> 
+      </dependency>
 	</dependencies>
 
 

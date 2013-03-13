@@ -14,6 +14,7 @@
  */
 package fr.liglab.adele.icasa.distributions.test;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -23,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.felix.framework.Felix;
+import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.FrameworkEvent;
@@ -260,6 +262,27 @@ public class DistributionTestFramework implements Framework {
 	 */
 	public Version getVersion() {
 		return _fwk.getVersion();
+	}
+	/* (non-Javadoc)
+	 * @see org.osgi.framework.Bundle#getDataFile(java.lang.String)
+	 */
+	@Override
+	public File getDataFile(String filename) {
+		return _fwk.getDataFile(filename);
+	}
+	/* (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
+	@Override
+	public int compareTo(Bundle arg0) {
+		return _fwk.compareTo(arg0);
+	}
+	/* (non-Javadoc)
+	 * @see org.osgi.framework.launch.Framework#adapt(java.lang.Class)
+	 */
+	@Override
+	public <A> A adapt(Class<A> type) {
+		return _fwk.adapt(type);
 	}
 
 }
