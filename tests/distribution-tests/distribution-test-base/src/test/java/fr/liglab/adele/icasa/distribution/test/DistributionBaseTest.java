@@ -48,7 +48,7 @@ public class DistributionBaseTest {
      * @param context the bundle context
      * @throws IllegalStateException when the stability can't be reach after a several attempts.
      */
-    private void waitForStability(BundleContext context) throws IllegalStateException {
+    protected void waitForStability(BundleContext context) throws IllegalStateException {
         // Wait for bundle initialization.
         boolean bundleStability = getBundleStability(context);
         int count = 0;
