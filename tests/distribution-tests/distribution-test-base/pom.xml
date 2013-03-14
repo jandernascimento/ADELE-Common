@@ -9,25 +9,27 @@
 		<version>1.0.4-SNAPSHOT</version>
 		<relativePath>../../../base</relativePath>
 	</parent>
-   <groupId>fr.liglab.adele.common</groupId>
-   <version>1.0.4-SNAPSHOT</version>
-   <artifactId>base.distribution.test</artifactId>
+
+	<artifactId>base.distribution.test</artifactId>
 	<name>${productName} :: Distribution Test Base</name>
-	<packaging>jar</packaging>
+	<packaging>bundle</packaging>
 
 
 	<properties>
 		<exam.version>3.0.0</exam.version>
 		<url.version>1.5.2</url.version>
 		<distrib.groupId>fr.liglab.adele.common</distrib.groupId>
-      <distrib.artifactId>distribution.base</distrib.artifactId>
+		<distrib.artifactId>distribution.base</distrib.artifactId>
 		<distrib.version>1.0.4-SNAPSHOT</distrib.version>
- 
+
 	</properties>
 
 	<dependencies>
 
-      
+		<dependency>
+			<groupId>org.apache.felix</groupId>
+			<artifactId>org.apache.felix.main</artifactId>
+		</dependency>
 		<dependency>
 			<groupId>org.ops4j.pax.exam</groupId>
 			<artifactId>pax-exam-container-native</artifactId>
@@ -39,7 +41,7 @@
 			<groupId>org.ops4j.pax.exam</groupId>
 			<artifactId>pax-exam-junit4</artifactId>
 			<version>${exam.version}</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 
 		<dependency>
@@ -53,14 +55,14 @@
 			<groupId>org.ops4j.pax.url</groupId>
 			<artifactId>pax-url-aether</artifactId>
 			<version>${url.version}</version>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<type>jar</type>
-			<scope>test</scope>
+			<!-- <scope>test</scope> -->
 		</dependency>
 		<!-- Distribution to test -->
 		<dependency>
@@ -68,7 +70,7 @@
 			<artifactId>${distrib.artifactId}</artifactId>
 			<version>${distrib.version}</version>
 			<type>osgi-distribution</type>
-         <scope>test</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -80,18 +82,18 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>test</scope>
 		</dependency>
-      <dependency>
-         <groupId>${project.groupId}</groupId>
-         <artifactId>distribution.factory</artifactId>
-         <version>${project.version}</version>
-         <exclusions>
-         <exclusion>
-            <!-- declare the exclusion here -->
-            <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.framework</artifactId>
-         </exclusion>
-      </exclusions> 
-      </dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>distribution.factory</artifactId>
+			<version>${project.version}</version>
+			<exclusions>
+				<exclusion>
+					<!-- declare the exclusion here -->
+					<groupId>org.apache.felix</groupId>
+					<artifactId>org.apache.felix.framework</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 	</dependencies>
 
 
@@ -123,6 +125,18 @@
 					<source>1.5</source>
 					<target>1.5</target>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.ops4j.pax.exam</groupId>
+				<artifactId>maven-paxexam-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>generate-config</id>
+						<goals>
+							<goal>generate-depends-file</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
