@@ -266,21 +266,18 @@ public class DistributionTestFramework implements Framework {
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.Bundle#getDataFile(java.lang.String)
 	 */
-	@Override
 	public File getDataFile(String filename) {
 		return _fwk.getDataFile(filename);
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
-	@Override
 	public int compareTo(Bundle arg0) {
 		return _fwk.compareTo(arg0);
 	}
 	/* (non-Javadoc)
 	 * @see org.osgi.framework.launch.Framework#adapt(java.lang.Class)
 	 */
-	@Override
 	public <A> A adapt(Class<A> type) {
 		return _fwk.adapt(type);
 	}
