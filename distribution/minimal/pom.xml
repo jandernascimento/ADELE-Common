@@ -97,7 +97,7 @@ limitations under the License.
                <plugins>
                   <plugin>
                      <groupId>fr.liglab.adele.common</groupId>
-                     <artifactId>osgi-distribution-plugin</artifactId>
+                     <artifactId>maven-osgi-distribution-plugin</artifactId>
                      <version>${pluginVersion}</version>
                      <extensions>true</extensions>
                      <configuration>
