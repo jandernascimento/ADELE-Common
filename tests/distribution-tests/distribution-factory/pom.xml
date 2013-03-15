@@ -21,7 +21,6 @@
 			<groupId>org.apache.felix</groupId>
 			<artifactId>org.apache.felix.framework</artifactId>
 		</dependency>
-
 	</dependencies>
 
 	<build>
