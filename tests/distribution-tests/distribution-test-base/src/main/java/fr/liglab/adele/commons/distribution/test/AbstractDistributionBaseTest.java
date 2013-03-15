@@ -4,11 +4,18 @@ package fr.liglab.adele.commons.distribution.test;
 
 import static org.ops4j.pax.exam.CoreOptions.junitBundles;
 import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
+import static org.ops4j.pax.exam.CoreOptions.systemTimeout;
+import static org.ops4j.pax.exam.CoreOptions.vmOption;
+import static org.ops4j.pax.exam.CoreOptions.when;
 
+import java.lang.management.ManagementFactory;
+import java.lang.management.RuntimeMXBean;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.felix.ipojo.Factory;
+import org.junit.Rule;
+import org.junit.rules.Timeout;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.options.CompositeOption;
@@ -19,6 +26,35 @@ import org.osgi.framework.ServiceReference;
 
 public abstract class AbstractDistributionBaseTest {
 
+	
+	protected int DEBUG_PORT = 9878;
+	
+	protected CompositeOption packDebugConfiguration() {
+		CompositeOption debugConfig = new DefaultCompositeOption(
+				when(isDebugModeOn())
+				.useOptions(
+						vmOption(String
+								.format("-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=%d",
+										DEBUG_PORT))
+										));
+
+		return debugConfig;
+	}
+
+	private static boolean isDebugModeOn() {
+		RuntimeMXBean RuntimemxBean = ManagementFactory.getRuntimeMXBean();
+		List<String> arguments = RuntimemxBean.getInputArguments();
+
+		boolean debugModeOn = false;
+
+		for (String string : arguments) {
+			debugModeOn = string.indexOf("jdwp") != -1;
+			if (debugModeOn)
+				break;
+		}
+
+		return debugModeOn;
+	} 
 
 	/**
 	 * Test configuration.
@@ -28,6 +64,7 @@ public abstract class AbstractDistributionBaseTest {
 		List<Option> config = new ArrayList<Option>();
 		config.add(junitBundles());
 		config.add(testBaseBundles());
+		config.add(packDebugConfiguration());
 		return config;
 	}
 	/**
@@ -67,7 +104,7 @@ public abstract class AbstractDistributionBaseTest {
 		int count = 0;
 		while (!bundleStability && count < 500) {
 			try {
-				Thread.sleep(5);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {
 				// Interrupted
 			}
@@ -118,8 +155,8 @@ public abstract class AbstractDistributionBaseTest {
 	 * @throws IllegalStateException when the stability can't be reach after a several attempts.
 	 */
 	protected void waitForiPojoFactoriesStability(BundleContext context) throws IllegalStateException {
-		
-		
+
+
 		int count = 0;
 		boolean serviceStability = false;
 		int count1 = 0;
@@ -145,7 +182,7 @@ public abstract class AbstractDistributionBaseTest {
 			throw new IllegalStateException("Cannot reach the service stability");
 		}
 	}
-	
+
 	/**
 	 * Are bundle stables.
 	 * @param bc the bundle context
