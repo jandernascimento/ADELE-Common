@@ -8,8 +8,7 @@ import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
+import org.apache.felix.ipojo.Factory;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.options.CompositeOption;
@@ -33,6 +32,7 @@ public abstract class AbstractDistributionBaseTest {
 	}
 	/**
 	 * Add the needed bundles to test the platform.
+	 * Mainly the bundle containing this class.
 	 * @return
 	 */
 	protected CompositeOption testBaseBundles() {
@@ -102,10 +102,50 @@ public abstract class AbstractDistributionBaseTest {
 
 		if (count == 500) {
 			System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
+			showUnstableBundles(context);
 			throw new IllegalStateException("Cannot reach the service stability");
 		}
 	}
 
+	/**
+	 * Waits for Factories stability:
+	 * <ul>
+	 * <li>service factories are valid
+	 * </ul>
+	 * If the stability can't be reached after a specified time,
+	 * the method throws a {@link IllegalStateException}.
+	 * @param context the bundle context
+	 * @throws IllegalStateException when the stability can't be reach after a several attempts.
+	 */
+	protected void waitForiPojoFactoriesStability(BundleContext context) throws IllegalStateException {
+		
+		
+		int count = 0;
+		boolean serviceStability = false;
+		int count1 = 0;
+		int count2 = 0;
+		while (! serviceStability && count < 500) {
+			try {
+				ServiceReference[] refs = context.getServiceReferences(Factory.class.getName(), null);
+				count1 = refs.length;
+				Thread.sleep(500);
+				refs = context.getServiceReferences(Factory.class.getName(), "(factory.state="+Factory.VALID+")");
+				count2 = refs.length;
+				serviceStability = count1 == count2;
+			} catch (Exception e) {
+				System.err.println(e);
+				serviceStability = false;
+				// Nothing to do, while recheck the condition
+			}
+			count++;
+		}
+
+		if (count == 500) {
+			System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
+			throw new IllegalStateException("Cannot reach the service stability");
+		}
+	}
+	
 	/**
 	 * Are bundle stables.
 	 * @param bc the bundle context
@@ -117,11 +157,23 @@ public abstract class AbstractDistributionBaseTest {
 		for (int i = 0; i < bundles.length; i++) {
 			int state = bundles[i].getState();
 			stability = stability && ((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED));
+		}
+		return stability;
+	}
+	/**
+	 * Are bundle stables.
+	 * @param bc the bundle context
+	 * @return <code>true</code> if every bundles are activated.
+	 */
+	private boolean showUnstableBundles(BundleContext bc) {
+		boolean stability = true;
+		Bundle[] bundles = bc.getBundles();
+		for (int i = 0; i < bundles.length; i++) {
+			int state = bundles[i].getState();
+			stability = stability && ((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED));
 			if (!((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED))){
 				System.err.println("Waiting to stability for: " + bundles[i].getSymbolicName());
-			} else {
-				System.err.println("Correctly installed: " + bundles[i].getSymbolicName());
-			}
+			} 
 		}
 		return stability;
 	}
