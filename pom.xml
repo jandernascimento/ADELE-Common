@@ -18,7 +18,7 @@
    <parent>
       <groupId>fr.liglab.adele.common</groupId>
       <artifactId>base</artifactId>
-      <version>1.0.4-SNAPSHOT</version>
+      <version>1.0.4</version>
       <relativePath>base</relativePath>
    </parent>
 
@@ -66,6 +66,6 @@
       <connection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</connection>
       <url>https://github.com/AdeleResearchGroup/ADELE-Common.git</url>
       <developerConnection>scm:git:ssh://git@github.com/AdeleResearchGroup/ADELE-Common.git</developerConnection>
-      <tag>HEAD</tag>
+      <tag>ADELE-Common-1.0.4</tag>
    </scm>
 </project>
