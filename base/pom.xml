@@ -30,7 +30,7 @@
       <!-- ADELE Projects -->
       <roseVersion>1.0.2</roseVersion>
 
-      <osgiDistribPlugin>1.0.0-SNAPSHOT</osgiDistribPlugin>
+      <osgiDistribPlugin>1.0.0</osgiDistribPlugin>
       <!-- Common dependencies -->
       <!-- iPOJO -->
       <iPojoVersion>1.8.2</iPojoVersion>
