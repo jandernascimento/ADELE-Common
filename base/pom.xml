@@ -13,7 +13,7 @@
    <!-- Project coordinates -->
    <groupId>fr.liglab.adele.common</groupId>
    <artifactId>base</artifactId>
-   <version>1.0.4-SNAPSHOT</version>
+   <version>1.0.5-SNAPSHOT</version>
    <packaging>pom</packaging>
 
    <!-- Project description -->
@@ -30,7 +30,7 @@
       <!-- ADELE Projects -->
       <roseVersion>1.0.2</roseVersion>
 
-      <osgiDistribPlugin>1.0.0-SNAPSHOT</osgiDistribPlugin>
+      <osgiDistribPlugin>1.0.0</osgiDistribPlugin>
       <!-- Common dependencies -->
       <!-- iPOJO -->
       <iPojoVersion>1.8.2</iPojoVersion>
@@ -127,7 +127,7 @@
          <name>iCASA Snapshot repository</name>
          <url>https://repository-icasa.forge.cloudbees.com/snapshot/</url>
          <releases>
-            <enabled>true</enabled>
+            <enabled>false</enabled>
          </releases>
          <snapshots>
             <enabled>true</enabled>
