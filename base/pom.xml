@@ -328,8 +328,8 @@
             <version>${servletAPIVersion}</version>
          </dependency>
          <dependency>
-            <groupid>org.glassfish.grizzly.osgi</groupid>
-            <artifactid>grizzly-httpservice-bundle</artifactid>
+            <groupId>org.glassfish.grizzly.osgi</groupId>
+            <artifactId>grizzly-httpservice-bundle</artifactId>
             <version>${grizzlyVersion}</version>
          </dependency>
          <dependency>
