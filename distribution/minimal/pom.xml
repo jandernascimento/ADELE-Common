@@ -30,10 +30,6 @@ limitations under the License.
     <artifactId>distribution.minimal.base</artifactId>
     <packaging>osgi-distribution</packaging>
     <name>${productName} :: ${projectName}</name>
-    
-    <properties>
-       <pluginVersion>1.0.0-SNAPSHOT</pluginVersion>
-    </properties>
          
          <!-- Project dependencies -->
     <dependencies>
@@ -61,10 +57,6 @@ limitations under the License.
       </dependency>
       <dependency>
          <groupId>org.apache.felix</groupId>
-         <artifactId>org.apache.felix.http.jetty</artifactId>
-      </dependency>
-         <dependency>
-         <groupId>org.apache.felix</groupId>
          <artifactId>org.apache.felix.ipojo.arch.gogo</artifactId>
       </dependency>
       <dependency>
@@ -91,14 +83,23 @@ limitations under the License.
          <groupId>org.apache.log4j</groupId>
          <artifactId>com.springsource.org.apache.log4j</artifactId>
       </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.grizzly.osgi</groupId>
+            <artifactId>grizzly-httpservice-bundle</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.gmbal</groupId>
+            <artifactId>gmbal-api-only</artifactId>
+        </dependency>
             
    </dependencies>
+
             <build>
                <plugins>
                   <plugin>
                      <groupId>fr.liglab.adele.common</groupId>
                      <artifactId>maven-osgi-distribution-plugin</artifactId>
-                     <version>${pluginVersion}</version>
                      <extensions>true</extensions>
                      <configuration>
                         <defaultOutputDirectory>bundle</defaultOutputDirectory>
