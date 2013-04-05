@@ -62,6 +62,7 @@
       <jsonserviceVersion>0.4.0</jsonserviceVersion>
       <jsonVersion>20090211</jsonVersion>
       <jettyVersion>2.2.0</jettyVersion>
+      <grizzlyVersion>2.2.18</grizzlyVersion>
       <atmosgiVersion>0.1.0-SNAPSHOT</atmosgiVersion>
       <!-- JMS -->
       <jmsVersion>1.1.0</jmsVersion>
@@ -325,6 +326,11 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servletAPIVersion}</version>
+         </dependency>
+         <dependency>
+            <groupid>org.glassfish.grizzly.osgi</groupid>
+            <artifactid>grizzly-httpservice-bundle</artifactid>
+            <version>${grizzlyVersion}</version>
          </dependency>
          <dependency>
             <groupId>org.apache.felix</groupId>
