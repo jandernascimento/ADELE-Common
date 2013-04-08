@@ -89,7 +89,7 @@
       <antPluginVersion>1.7</antPluginVersion>
       <gmavenPluginVersion>1.0</gmavenPluginVersion>
       <assemblyPluginVersion>2.3</assemblyPluginVersion>
-      <playPluginVersion>1.2.1</playPluginVersion>
+      <playPluginVersion>1.2.2</playPluginVersion>
       <lifecyclePluginVersion>1.0.0</lifecyclePluginVersion>
       <failsafePluginVersion>2.12.4</failsafePluginVersion>
       
@@ -823,7 +823,7 @@
 
             <!-- Play2 framework plugin -->
             <plugin>
-               <groupId>de.akquinet.innovation.play2</groupId>
+               <groupId>org.nanoko.playframework</groupId>
                <artifactId>play2-maven-plugin</artifactId>
                <version>${playPluginVersion}</version>
             </plugin>
@@ -911,7 +911,7 @@
             <version>${webdavPluginVersion}</version>
          </extension>
          <extension>
-            <groupId>de.akquinet.innovation.play2</groupId>
+            <groupId>org.nanoko.playframework</groupId>
             <artifactId>play2-maven-plugin</artifactId>
             <version>${playPluginVersion}</version>
          </extension>
