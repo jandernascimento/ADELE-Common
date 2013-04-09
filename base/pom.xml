@@ -63,7 +63,7 @@
       <jsonVersion>20090211</jsonVersion>
       <jettyFelixVersion>2.2.0</jettyFelixVersion>
       <jettyVersion>9.0.0.v20130308</jettyVersion>
-      <grizzlyVersion>2.2.19</grizzlyVersion>
+      <grizzlyVersion>1.9.36</grizzlyVersion>
       <gmbalVersion>3.0.0-b008</gmbalVersion>
       <atmosgiVersion>0.1.0-SNAPSHOT</atmosgiVersion>
       <!-- JMS -->
@@ -332,7 +332,8 @@
 
          <!-- Grizzly -->
          <dependency>
-            <groupId>org.glassfish.grizzly.osgi</groupId>
+            <!--groupId>org.glassfish.grizzly.osgi</groupId-->
+            <groupId>com.sun.grizzly.osgi</groupId>
             <artifactId>grizzly-httpservice-bundle</artifactId>
             <version>${grizzlyVersion}</version>
          </dependency>
