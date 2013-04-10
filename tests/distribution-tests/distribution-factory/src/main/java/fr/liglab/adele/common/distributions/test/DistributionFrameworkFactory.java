@@ -31,9 +31,9 @@ import org.osgi.framework.launch.FrameworkFactory;
 
 public class DistributionFrameworkFactory implements FrameworkFactory {
 
-	private String BUNDLESDIR = "/bundle/";
-	private String LOADDIR = "/load/";
-	private String ROOTDIR = "./target/distribution/";
+	private String BUNDLESDIR = "bundle";
+	private String LOADDIR = "load";
+	private String ROOTDIR = "target" + File.separator + "distribution" + File.separator;
 	 /**
      * Switch for specifying bundle directory.
     **/
@@ -114,7 +114,7 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 		StringBuilder listOfBundles = new StringBuilder();
 		String currentpath = null;
 		try {
-			currentpath =  new File("./target/distribution/").getCanonicalPath();
+			currentpath =  new File(ROOTDIR).getCanonicalPath();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -147,7 +147,7 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 		return listOfBundles.toString();
 	}
 	private String getBundleFolder() throws IOException{
-		File bundle = new File(getRootDir() + BUNDLESDIR);
+		File bundle = new File(getRootDir() , BUNDLESDIR);
 		if (bundle.exists() && bundle.isDirectory()) {
 			return bundle.getCanonicalPath();
 		}
@@ -155,7 +155,7 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 	}
 
 	private String getLoadFolder() throws IOException{
-		File bundle = new File(getRootDir() + LOADDIR);
+		File bundle = new File(getRootDir() , LOADDIR);
 		if (bundle.exists() && bundle.isDirectory()) {
 			return bundle.getCanonicalPath();
 		}
@@ -165,7 +165,7 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 
 	private String getRootDir() throws IOException {
 		File root = new File(ROOTDIR);
-		File[] listOfFiles = root.listFiles(); 
+		File[] listOfFiles = root.getAbsoluteFile().listFiles(); 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isDirectory()) {
 				return listOfFiles[i].getCanonicalPath(); //it must be only one directory.
