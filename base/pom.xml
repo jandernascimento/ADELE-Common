@@ -28,7 +28,7 @@
       <projectName>${project.artifactId}</projectName>
 
       <!-- ADELE Projects -->
-      <roseVersion>1.0.2</roseVersion>
+      <roseVersion>1.0.3-SNAPSHOT</roseVersion>
 
       <osgiDistribPlugin>1.0.0</osgiDistribPlugin>
       <!-- Common dependencies -->
@@ -63,8 +63,8 @@
       <jsonVersion>20090211</jsonVersion>
       <jettyFelixVersion>2.2.0</jettyFelixVersion>
       <jettyVersion>9.0.0.v20130308</jettyVersion>
-      <grizzlyVersion>1.9.36</grizzlyVersion>
-      <gmbalVersion>3.0.0-b008</gmbalVersion>
+      <grizzlyVersion>2.3</grizzlyVersion>
+      <gmbalVersion>3.2.0-b003</gmbalVersion>
       <atmosgiVersion>0.1.0-SNAPSHOT</atmosgiVersion>
       <!-- JMS -->
       <jmsVersion>1.1.0</jmsVersion>
@@ -332,11 +332,15 @@
 
          <!-- Grizzly -->
          <dependency>
-            <!--groupId>org.glassfish.grizzly.osgi</groupId-->
-            <groupId>com.sun.grizzly.osgi</groupId>
-            <artifactId>grizzly-httpservice-bundle</artifactId>
-            <version>${grizzlyVersion}</version>
+            <groupId>org.glassfish.grizzly.osgi</groupId>
+            <artifactId>grizzly-bundle</artifactId>
+            <version>${grizzlyVersion}-0001-SNAPSHOT</version>
          </dependency>
+         <dependency>
+              <groupId>org.glassfish.grizzly.osgi</groupId>
+              <artifactId>grizzly-httpservice-bundle</artifactId>
+              <version>${grizzlyVersion}</version>
+          </dependency>
           <dependency>
               <groupId>org.glassfish.gmbal</groupId>
               <artifactId>gmbal-api-only</artifactId>
