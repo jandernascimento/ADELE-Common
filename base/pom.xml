@@ -124,28 +124,7 @@
             <enabled>true</enabled>
          </snapshots>
       </repository>
-      <repository>
-         <id>icasa-snapshot-repository</id>
-         <name>iCASA Snapshot repository</name>
-         <url>https://repository-icasa.forge.cloudbees.com/snapshot/</url>
-         <releases>
-            <enabled>false</enabled>
-         </releases>
-         <snapshots>
-            <enabled>true</enabled>
-         </snapshots>
-      </repository>
-      <repository>
-         <id>icasa-release-repository</id>
-         <name>iCASA Release repository</name>
-         <url>https://repository-icasa.forge.cloudbees.com/release/</url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </repository>
+
 
       <!-- OW2 projects repositories (mainly Chameleon) -->
       <repository>
@@ -195,69 +174,47 @@
          <layout>default</layout>
       </repository>
 
-      <!-- ROSE repository -->
-      <repository>
-         <id>maven-barjo-repository-release</id>
-         <name>RoSe - Release</name>
-         <url>http://repository-barjo.forge.cloudbees.com/release/</url>
-         <layout>default</layout>
-      </repository>
-      <repository>
-         <id>maven-barjo-repository-snapshot</id>
-         <name>RoSe - Snapshot</name>
-         <url>http://repository-barjo.forge.cloudbees.com/snapshot/</url>
-         <layout>default</layout>
-      </repository>
+        <!-- ADELE repositories -->
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>adele-central-snapshot</id>
+            <name>adele-repos</name>
+            <url>http://maven.dynamis-technologies.com/artifactory/adele-repos</url>
+        </repository>
+        <repository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>adele-central-release</name>
+            <url>http://maven.dynamis-technologies.com/artifactory/adele-repos</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>central</id>
+            <name>adele-repos</name>
+            <url>http://maven.dynamis-technologies.com/artifactory/adele-repos</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots />
+            <id>snapshots</id>
+            <name>adele-central-release</name>
+            <url>http://maven.dynamis-technologies.com/artifactory/adele-repos</url>
+        </pluginRepository>
 
-      <!-- Cilia mediation framework repository -->
-      <repository>
-         <id>maven-cilia-repository-release</id>
-         <name>Cilia - Release</name>
-         <url>http://repository-cilia.forge.cloudbees.com/release/</url>
-         <layout>default</layout>
-      </repository>
-      <repository>
-         <id>maven-cilia-repository-snapshot</id>
-         <name>Cilia - Snapshot</name>
-         <url>http://repository-cilia.forge.cloudbees.com/snapshot/</url>
-         <layout>default</layout>
-      </repository>
-   </repositories>
-
-   <pluginRepositories>
-      <!-- iCASA repositories -->
-      <pluginRepository>
-         <id>icasa-plugin-snapshot-repository</id>
-         <name>iCASA Plugin Snapshot repository</name>
-         <url>https://repository-icasa.forge.cloudbees.com/snapshot/</url>
-         <releases>
-            <enabled>false</enabled>
-         </releases>
-         <snapshots>
-            <enabled>true</enabled>
-         </snapshots>
-      </pluginRepository>
-      <pluginRepository>
-         <id>icasa-plugin-release-repository</id>
-         <name>iCASA Plugin Release repository</name>
-         <url>https://repository-icasa.forge.cloudbees.com/release/</url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-         <snapshots>
-            <enabled>false</enabled>
-         </snapshots>
-      </pluginRepository>
-
-      <!-- dependency tools repository -->
-      <pluginRepository>
-         <id>elca-services</id>
-         <url>http://el4.elca-services.ch/el4j/maven2repository</url>
-         <releases>
-            <enabled>true</enabled>
-         </releases>
-      </pluginRepository>
-   </pluginRepositories>
+        <!-- dependency tools repository -->
+        <pluginRepository>
+            <id>elca-services</id>
+            <url>http://el4.elca-services.ch/el4j/maven2repository</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </pluginRepository>
+    </pluginRepositories>
 
    <!-- Dependencies version management -->
    <dependencyManagement>
@@ -332,7 +289,7 @@
 
          <!-- Grizzly -->
          <dependency>
-            <groupId>org.glassfish.grizzly.osgi</groupId>
+            <groupId>org.ow2.chameleon.commons.grizzly</groupId>
             <artifactId>grizzly-bundle</artifactId>
             <version>${grizzlyVersion}-0001-SNAPSHOT</version>
          </dependency>
