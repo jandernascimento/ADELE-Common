@@ -86,15 +86,11 @@ limitations under the License.
 
         <dependency>
             <groupId>org.glassfish.grizzly.osgi</groupId>
-            <artifactId>grizzly-httpservice-bundle</artifactId>
+            <artifactId>grizzly-httpservice</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ow2.chameleon.commons.grizzly</groupId>
             <artifactId>grizzly-bundle</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.gmbal</groupId>
-            <artifactId>gmbal-api-only</artifactId>
         </dependency>
             
    </dependencies>

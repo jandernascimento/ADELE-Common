@@ -295,7 +295,7 @@
          </dependency>
          <dependency>
               <groupId>org.glassfish.grizzly.osgi</groupId>
-              <artifactId>grizzly-httpservice-bundle</artifactId>
+              <artifactId>grizzly-httpservice</artifactId>
               <version>${grizzlyVersion}</version>
           </dependency>
           <dependency>
