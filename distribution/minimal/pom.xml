@@ -83,15 +83,19 @@ limitations under the License.
          <groupId>org.apache.log4j</groupId>
          <artifactId>com.springsource.org.apache.log4j</artifactId>
       </dependency>
+      <dependency>
+          <groupId>org.apache.felix</groupId>
+          <artifactId>org.apache.felix.http.jetty</artifactId>
+      </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>org.glassfish.grizzly.osgi</groupId>
             <artifactId>grizzly-httpservice</artifactId>
         </dependency>
         <dependency>
             <groupId>org.ow2.chameleon.commons.grizzly</groupId>
             <artifactId>grizzly-bundle</artifactId>
-        </dependency>
+        </dependency-->
             
    </dependencies>
 
