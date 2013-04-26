@@ -57,6 +57,11 @@ public class AutoloadFileResourceProcessor implements ResourceProcessor, Artifac
         File persistRoot = new File(root, "autoloadResProc/");
         persistRoot.mkdir();
         _persistencyManager = new PersistencyManager(persistRoot);
+        String fileInstallDirectory = _context.getProperty("felix.fileinstall.dir");
+        if (fileInstallDirectory != null){
+            String[]directoryList =  fileInstallDirectory.split(",");
+            _autoloadDir = new File(directoryList[0]);
+        }
 	}
 	
 	@Invalidate
@@ -224,7 +229,7 @@ public class AutoloadFileResourceProcessor implements ResourceProcessor, Artifac
 	 */
 	@Override
 	public boolean canHandle(File file) {
-		if ((_autoloadDir == null) && file.getName().endsWith(".dp")) {
+		if (_autoloadDir == null) {
 			_autoloadDir = file.getParentFile();
 		}
 		return false;

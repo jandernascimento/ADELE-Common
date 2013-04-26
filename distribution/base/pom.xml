@@ -100,12 +100,12 @@
      <dependency>
         <groupId>fr.liglab.adele.common</groupId>
         <artifactId>deployment.package.file.install</artifactId>
-        <version>1.0.2</version>
+        <version>${project.version}</version>
      </dependency>
      <dependency>
         <groupId>fr.liglab.adele.common</groupId>
         <artifactId>autoload.res.processor</artifactId>
-        <version>1.0.2</version>
+        <version>${project.version}</version>
      </dependency>
 
   </dependencies>
