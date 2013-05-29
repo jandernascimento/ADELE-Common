@@ -92,7 +92,8 @@
       <playPluginVersion>1.2.2</playPluginVersion>
       <lifecyclePluginVersion>1.0.0</lifecyclePluginVersion>
       <failsafePluginVersion>2.12.4</failsafePluginVersion>
-      
+      <mavenDeployPlugin>2.7</mavenDeployPlugin>
+      <mavenPaxExampPlugin>1.2.4</mavenPaxExampPlugin>
       <!-- By default, all sources are UTF-8-encoded. -->
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
    </properties>
@@ -594,7 +595,17 @@
       <!-- Plugins version management -->
       <pluginManagement>
          <plugins>
-
+             <!--Deploy plugin-->
+             <plugin>
+                 <groupId>org.apache.maven.plugins</groupId>
+                 <artifactId>maven-deploy-plugin</artifactId>
+                 <version>${mavenDeployPlugin}</version>
+             </plugin>
+             <plugin>
+                 <groupId>org.ops4j.pax.exam</groupId>
+                 <artifactId>maven-paxexam-plugin</artifactId>
+                 <version>${mavenPaxExampPlugin}</version>
+             </plugin>
             <!-- Compiler plugin -->
             <plugin>
                <groupId>org.apache.maven.plugins</groupId>
@@ -795,6 +806,7 @@
                   </configuration>
                </plugin>
          </plugins>
+
       </pluginManagement>
 
       <!-- Build extensions -->
