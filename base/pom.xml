@@ -38,7 +38,6 @@
       <iPojoMetadataVersion>1.4.0</iPojoMetadataVersion>
       <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
       <iPojoArchVersion>1.0.1</iPojoArchVersion>
-      <iPojoHandiesVersion>0.0.1-SNAPSHOT</iPojoHandiesVersion>
       <ipojoWebconsole>1.6.0</ipojoWebconsole>
       <!-- Logs -->
       <slf4jVersion>1.6.4</slf4jVersion>
@@ -409,18 +408,6 @@
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.eventadmin</artifactId>
             <version>${eventAdminVersion}</version>
-         </dependency>
-
-         <!-- OW2 Chameleon handies & annotations -->
-         <dependency>
-            <groupId>org.ow2.chameleon.handies</groupId>
-            <artifactId>annotations</artifactId>
-            <version>${iPojoHandiesVersion}</version>
-         </dependency>
-         <dependency>
-            <groupId>org.ow2.chameleon.handies</groupId>
-            <artifactId>ipojo-log-handler</artifactId>
-            <version>${iPojoHandiesVersion}</version>
          </dependency>
          <!-- Akquinet Deployment Admin-->
          <dependency>

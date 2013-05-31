@@ -40,10 +40,6 @@
      </dependency>
 
      <dependency>
-        <groupId>org.ow2.chameleon.handies</groupId>
-        <artifactId>ipojo-log-handler</artifactId>
-     </dependency>
-     <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.configadmin</artifactId>
      </dependency>
