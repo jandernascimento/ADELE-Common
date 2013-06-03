@@ -13,7 +13,7 @@
 	<artifactId>rose.dp</artifactId>
 	<packaging>deployment-package</packaging>
 	<description>Rose Core DP</description>
-	<version>1.0.3-SNAPSHOT</version>
+   <version>${roseVersion}</version>
 	<name>${productName} :: ${projectName}</name>
 
 	<dependencies>
