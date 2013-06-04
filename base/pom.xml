@@ -54,6 +54,7 @@
       <pojosrVersion>0.2.1</pojosrVersion>
       <configAdminVersion>1.2.8</configAdminVersion>
       <whiteboardVersion>2.0.4</whiteboardVersion>
+      <guavaVersion>14.0.1</guavaVersion>
       <!-- REST, Web Server and web tools -->
       <servletAPIVersion>2.5</servletAPIVersion>
       <mailVersion>1.4.3</mailVersion>
@@ -450,7 +451,11 @@
             <artifactId>atmosgi-service</artifactId>
             <version>${atmosgiVersion}</version>
          </dependency>
-
+         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guavaVersion}</version>
+         </dependency>
          <!-- Jersey ROSE exporter -->
          <dependency>
             <groupId>com.sun.jersey</groupId>
