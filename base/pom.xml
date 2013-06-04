@@ -28,12 +28,12 @@
       <projectName>${project.artifactId}</projectName>
 
       <!-- ADELE Projects -->
-      <roseVersion>1.0.4</roseVersion>
+      <roseVersion>1.0.5-SNAPSHOT</roseVersion>
 
       <osgiDistribPlugin>1.0.0</osgiDistribPlugin>
       <!-- Common dependencies -->
       <!-- iPOJO -->
-      <iPojoVersion>1.10.0</iPojoVersion>
+      <iPojoVersion>1.10.1-SNAPSHOT</iPojoVersion>
       <iPojoAPIVersion>1.10.0</iPojoAPIVersion>
       <iPojoMetadataVersion>1.6.0</iPojoMetadataVersion>
       <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
