@@ -28,17 +28,17 @@
       <projectName>${project.artifactId}</projectName>
 
       <!-- ADELE Projects -->
-      <roseVersion>1.0.3-SNAPSHOT</roseVersion>
+      <roseVersion>1.2.0</roseVersion>
 
       <osgiDistribPlugin>1.0.0</osgiDistribPlugin>
       <!-- Common dependencies -->
       <!-- iPOJO -->
-      <iPojoVersion>1.8.2</iPojoVersion>
-      <iPojoAPIVersion>1.6.0</iPojoAPIVersion>
-      <iPojoMetadataVersion>1.4.0</iPojoMetadataVersion>
+      <iPojoVersion>1.10.1-SNAPSHOT</iPojoVersion>
+      <iPojoAPIVersion>1.10.0</iPojoAPIVersion>
+      <iPojoMetadataVersion>1.6.0</iPojoMetadataVersion>
       <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
-      <iPojoArchVersion>1.0.1</iPojoArchVersion>
-      <ipojoWebconsole>1.6.0</ipojoWebconsole>
+      <iPojoArchVersion>1.1.0</iPojoArchVersion>
+      <ipojoWebconsole>1.7.0</ipojoWebconsole>
       <!-- Logs -->
       <slf4jVersion>1.6.4</slf4jVersion>
       <log4jVersion>1.2.16</log4jVersion>
@@ -76,7 +76,7 @@
       <testngVersion>6.1.1</testngVersion>
       <!-- plugins -->
       <bundlePluginVersion>2.3.7</bundlePluginVersion>
-      <iPojoPluginVersion>1.8.6</iPojoPluginVersion>
+      <iPojoPluginVersion>1.10.0</iPojoPluginVersion>
       <releasePluginVersion>2.3.2</releasePluginVersion>
       <surefirePluginVersion>2.12</surefirePluginVersion>
       <webdavPluginVersion>2.2</webdavPluginVersion>
@@ -399,6 +399,11 @@
                   <artifactId>org.osgi.compendium</artifactId>
                </exclusion>
             </exclusions>
+         </dependency>
+         <dependency>
+            <groupId>org.apache.felix</groupId>
+            <artifactId>org.apache.felix.ipojo.manipulator</artifactId>
+            <version>${iPojoVersion}</version>
          </dependency>
          <dependency>
             <groupId>org.apache.felix</groupId>
