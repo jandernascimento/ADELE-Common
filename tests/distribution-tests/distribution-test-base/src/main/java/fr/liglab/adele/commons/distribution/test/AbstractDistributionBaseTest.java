@@ -104,7 +104,7 @@ public abstract class AbstractDistributionBaseTest {
 		int count = 0;
 		while (!bundleStability && count < 500) {
 			try {
-				Thread.sleep(50);
+				Thread.sleep(500);
 			} catch (InterruptedException e) {
 				// Interrupted
 			}
@@ -112,7 +112,7 @@ public abstract class AbstractDistributionBaseTest {
 			bundleStability = getBundleStability(context);
 		}
 
-		if (count == 500) {
+		if (count >= 500) {
 			System.err.println("Bundle stability isn't reached after 500 tries");
 			throw new IllegalStateException("Cannot reach the bundle stability");
 		}
@@ -137,11 +137,14 @@ public abstract class AbstractDistributionBaseTest {
 			count++;
 		}
 
-		if (count == 500) {
+		if (count >= 500) {
 			System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
 			showUnstableBundles(context);
 			throw new IllegalStateException("Cannot reach the service stability");
 		}
+
+        waitForiPojoFactoriesStability(context);
+
 	}
 
 	/**
@@ -177,7 +180,7 @@ public abstract class AbstractDistributionBaseTest {
 			count++;
 		}
 
-		if (count == 500) {
+		if (count >= 500) {
 			System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
 			throw new IllegalStateException("Cannot reach the service stability");
 		}
@@ -214,4 +217,14 @@ public abstract class AbstractDistributionBaseTest {
 		}
 		return stability;
 	}
+
+    protected <S> S getService(BundleContext context, Class clazz){
+        ServiceReference<S> sr = context.getServiceReference(clazz);
+
+        if (sr == null){
+            return null;
+        }
+        S service = context.getService(sr);
+        return service;
+    }
 }

@@ -44,8 +44,10 @@
       <log4jVersion>1.2.16</log4jVersion>
       <felixLogVersion>1.0.1</felixLogVersion>
       <!-- OSGi and tools -->
-      <osgiVersion>4.2.0</osgiVersion>
-      <felixVersion>4.0.3</felixVersion>
+      <osgiVersion>4.3.1</osgiVersion>
+      <osgiEnterpriseVersion>4.2.0</osgiEnterpriseVersion>
+      <osgiCompendiumVersion>4.2.0</osgiCompendiumVersion>
+      <felixVersion>4.2.1</felixVersion>
       <fileinstallVersion>3.1.4</fileinstallVersion>
       <eventAdminVersion>1.3.0</eventAdminVersion>
       <gogoCommandVersion>0.12.0</gogoCommandVersion>
@@ -193,12 +195,12 @@
          <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.compendium</artifactId>
-            <version>${osgiVersion}</version>
+            <version>${osgiCompendiumVersion}</version>
          </dependency>
          <dependency>
             <groupId>org.osgi</groupId>
             <artifactId>org.osgi.enterprise</artifactId>
-            <version>${osgiVersion}</version>
+            <version>${osgiEnterpriseVersion}</version>
          </dependency>
          
 
