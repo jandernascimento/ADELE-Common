@@ -142,13 +142,13 @@ public abstract class AbstractDistributionBaseTest {
 	}
 
 
-    protected <S> S getService(BundleContext context, Class clazz){
-        ServiceReference<S> sr = context.getServiceReference(clazz);
+    protected Object getService(BundleContext context, Class clazz){
+        ServiceReference sr = context.getServiceReference(clazz.getName());
 
         if (sr == null){
             return null;
         }
-        S service = context.getService(sr);
+        Object service = context.getService(sr);
         return service;
     }
 }
