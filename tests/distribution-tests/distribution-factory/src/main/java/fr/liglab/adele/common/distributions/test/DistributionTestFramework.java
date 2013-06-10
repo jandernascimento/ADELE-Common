@@ -14,15 +14,17 @@
  */
 package fr.liglab.adele.common.distributions.test;
 
-import java.io.InputStream;
+
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
 
 import org.apache.felix.framework.Felix;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
-import org.osgi.framework.FrameworkEvent;
 import org.osgi.framework.ServiceReference;
+
 
 /**
  * @author <a href="mailto:cilia-devel@lists.ligforge.imag.fr">Cilia Project
@@ -37,46 +39,6 @@ public class DistributionTestFramework extends Felix {
 		felixConfiguration.putAll(configuration);
 	}
 
-    @Override
-    public <A> A adapt(Class<A> type) {
-        return super.adapt(type);    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public long getBundleId() {
-        return super.getBundleId();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public long getLastModified() {
-        return super.getLastModified();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public int getPersistentState() {
-        return super.getPersistentState();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void setPersistentStateInactive() {
-        super.setPersistentStateInactive();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void setPersistentStateActive() {
-        super.setPersistentStateActive();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void setPersistentStateUninstalled() {
-        super.setPersistentStateUninstalled();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public boolean hasPermission(Object obj) {
-        return super.hasPermission(obj);    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
     /**
 	 * @throws BundleException
 	 * @see org.osgi.framework.launch.Framework#init()
@@ -86,75 +48,101 @@ public class DistributionTestFramework extends Felix {
 		AutoProcessor.process(felixConfiguration, getBundleContext());
 	}
 
+    public void start() throws BundleException{
+        super.start();
+        waitForStability(getBundleContext());
+    }
     /**
-     * This method starts the framework instance, which will transition the
-     * framework from start level 0 to its active start level as specified in
-     * its configuration properties (1 by default). If the <tt>init()</tt> was
-     * not explicitly invoked before calling this method, then it will be
-     * implicitly invoked before starting the framework.
-     *
-     * @throws org.osgi.framework.BundleException
-     *          if any error occurs.
+     * Waits for stability:
+     * <ul>
+     * <li>all bundles are activated
+     * <li>service count is stable
+     * </ul>
+     * If the stability can't be reached after a specified time,
+     * the method throws a {@link IllegalStateException}.
+     * @param context the bundle context
+     * @throws IllegalStateException when the stability can't be reach after a several attempts.
      */
-    @Override
-    public void start() throws BundleException {
-        super.start();    //To change body of overridden methods use File | Settings | File Templates.
-    }
+    protected void waitForStability(BundleContext context) throws IllegalStateException {
+        // Wait for bundle initialization.
+        boolean bundleStability = getBundleStability(context);
+        int count = 0;
+        System.out.println("To reach stability");
+        while (!bundleStability && count < 500) {
+            System.out.println("Waiting for stability" + count);
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                // Interrupted
+            }
+            count++;
+            bundleStability = getBundleStability(context);
+        }
 
-    @Override
-    public void start(int options) throws BundleException {
-        super.start(options);    //To change body of overridden methods use File | Settings | File Templates.
+        if (count >= 500) {
+            System.err.println("Bundle stability isn't reached after 500 tries");
+            showUnstableBundles(context);
+            throw new IllegalStateException("Cannot reach the bundle stability");
+        }
+
+        boolean serviceStability = false;
+        count = 0;
+        int count1 = 0;
+        int count2 = 0;
+        while (! serviceStability && count < 500) {
+            try {
+                ServiceReference[] refs = context.getServiceReferences((String) null, null);
+                count1 = refs.length;
+                Thread.sleep(50);
+                refs = context.getServiceReferences((String) null, null);
+                count2 = refs.length;
+                serviceStability = count1 == count2;
+            } catch (Exception e) {
+                System.err.println(e);
+                serviceStability = false;
+                // Nothing to do, while recheck the condition
+            }
+            count++;
+        }
+
+        if (count >= 500) {
+            System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
+            showUnstableBundles(context);
+            throw new IllegalStateException("Cannot reach the service stability");
+        }
+
     }
 
     /**
-     * This method asynchronously shuts down the framework, it must be called at the
-     * end of a session in order to shutdown all active bundles.
+     * Are bundle stables.
+     * @param bc the bundle context
+     * @return <code>true</code> if every bundles are activated.
      */
-    @Override
-    public void stop() throws BundleException {
-        super.stop();    //To change body of overridden methods use File | Settings | File Templates.
+    private boolean getBundleStability(BundleContext bc) {
+        boolean stability = true;
+        Bundle[] bundles = bc.getBundles();
+        for (int i = 0; i < bundles.length; i++) {
+            int state = bundles[i].getState();
+            stability = stability && ((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED));
+        }
+        return stability;
     }
-
-    @Override
-    public void stop(int options) throws BundleException {
-        super.stop(options);    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
     /**
-     * This method will cause the calling thread to block until the framework
-     * shuts down.
-     *
-     * @param timeout A timeout value.
-     * @throws InterruptedException If the thread was interrupted.
+     * Are bundle stables.
+     * @param bc the bundle context
+     * @return <code>true</code> if every bundles are activated.
      */
-    @Override
-    public FrameworkEvent waitForStop(long timeout) throws InterruptedException {
-        return super.waitForStop(timeout);    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void uninstall() throws BundleException {
-        super.uninstall();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void update() throws BundleException {
-        super.update();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public void update(InputStream is) throws BundleException {
-        super.update(is);    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public String toString() {
-        return super.toString();    //To change body of overridden methods use File | Settings | File Templates.
-    }
-
-    @Override
-    public <S> Set<ServiceReference<S>> getHooks(Class<S> hookClass) {
-        return super.getHooks(hookClass);    //To change body of overridden methods use File | Settings | File Templates.
+    private boolean showUnstableBundles(BundleContext bc) {
+        boolean stability = true;
+        Bundle[] bundles = bc.getBundles();
+        for (int i = 0; i < bundles.length; i++) {
+            int state = bundles[i].getState();
+            stability = stability && ((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED));
+            if (!((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED))){
+                System.err.println("Waiting to stability for: " + bundles[i].getSymbolicName() +" : "+ state);
+            }
+        }
+        return stability;
     }
 
 
