@@ -28,7 +28,7 @@
       <projectName>${project.artifactId}</projectName>
 
       <!-- ADELE Projects -->
-      <roseVersion>1.2.0</roseVersion>
+      <roseVersion>1.2.2-SNAPSHOT</roseVersion>
 
       <osgiDistribPlugin>1.0.1-SNAPSHOT</osgiDistribPlugin>
       <!-- Common dependencies -->
@@ -67,7 +67,6 @@
       <jettyVersion>9.0.0.v20130308</jettyVersion>
       <grizzlyVersion>2.3</grizzlyVersion>
       <gmbalVersion>3.2.0-b003</gmbalVersion>
-      <atmosgiVersion>1.2.2-SNAPSHOT</atmosgiVersion>
       <!-- JMS -->
       <jmsVersion>1.1.0</jmsVersion>
       <joramVersion>5.7.0</joramVersion>
@@ -444,6 +443,11 @@
          </dependency>
          <dependency>
             <groupId>org.ow2.chameleon.rose</groupId>
+            <artifactId>rose.dp</artifactId>
+            <version>${roseVersion}</version>
+         </dependency>
+         <dependency>
+            <groupId>org.ow2.chameleon.rose</groupId>
             <artifactId>json-configurator</artifactId>
             <version>${roseVersion}</version>
          </dependency>
@@ -451,12 +455,12 @@
          <dependency>
             <groupId>org.ow2.chameleon.rose.atmosphere</groupId>
             <artifactId>atmosgi-component</artifactId>
-            <version>${atmosgiVersion}</version>
+            <version>${roseVersion}</version>
          </dependency>
          <dependency>
             <groupId>org.ow2.chameleon.rose.atmosphere</groupId>
             <artifactId>atmosgi-service</artifactId>
-            <version>${atmosgiVersion}</version>
+            <version>${roseVersion}</version>
          </dependency>
          <dependency>
             <groupId>com.google.guava</groupId>
