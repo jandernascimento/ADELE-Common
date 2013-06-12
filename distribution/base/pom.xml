@@ -94,6 +94,17 @@
 		<groupId>org.apache.felix</groupId>
 		<artifactId>org.apache.felix.eventadmin</artifactId>
      </dependency>	 
+	 
+	 
+	<!-- Shared Preferences Bundles-->
+	<dependency>
+		<groupId>org.ow2.chameleon.sharedprefs</groupId>
+		<artifactId>shared-preferences-service</artifactId>
+	</dependency>
+	<dependency>
+		<groupId>org.ow2.chameleon.sharedprefs</groupId>
+		<artifactId>xml-shared-preferences</artifactId>	
+	</dependency>
      
      
      <dependency>

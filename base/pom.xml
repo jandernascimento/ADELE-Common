@@ -56,6 +56,7 @@
       <pojosrVersion>0.2.1</pojosrVersion>
       <configAdminVersion>1.2.8</configAdminVersion>
       <whiteboardVersion>2.0.4</whiteboardVersion>
+	  <sharedPreferencesVersion>0.2.0</sharedPreferencesVersion>
       <guavaVersion>14.0.1</guavaVersion>
       <!-- REST, Web Server and web tools -->
       <servletAPIVersion>2.5</servletAPIVersion>
@@ -572,6 +573,19 @@
             <artifactId>monolog</artifactId>
             <version>${monologVersion}</version>
          </dependency>
+		 
+		 
+		<!-- OW2 Shared Preferences Bundles-->
+		<dependency>
+			<groupId>org.ow2.chameleon.sharedprefs</groupId>
+			<artifactId>shared-preferences-service</artifactId>
+			<version>${sharedPreferencesVersion}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.ow2.chameleon.sharedprefs</groupId>
+			<artifactId>xml-shared-preferences</artifactId>
+			<version>${sharedPreferencesVersion}</version>		
+		</dependency>		 
 
             <!-- PojoSR test framework -->
             <dependency>
