@@ -37,7 +37,7 @@
       <iPojoAPIVersion>1.10.0</iPojoAPIVersion>
       <iPojoMetadataVersion>1.6.0</iPojoMetadataVersion>
       <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
-      <iPojoArchVersion>1.1.0</iPojoArchVersion>
+      <iPojoArchVersion>${iPojoVersion}</iPojoArchVersion>
       <ipojoWebconsole>1.7.0</ipojoWebconsole>
       <!-- Logs -->
       <slf4jVersion>1.6.4</slf4jVersion>
@@ -527,7 +527,7 @@
          </dependency>
          <dependency>
             <groupId>org.apache.felix</groupId>
-            <artifactId>org.apache.felix.ipojo.arch.gogo</artifactId>
+            <artifactId>org.apache.felix.ipojo.gogo</artifactId>
             <version>${iPojoArchVersion}</version>
          </dependency>
 
