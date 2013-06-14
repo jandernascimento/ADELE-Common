@@ -79,6 +79,8 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 		// Read configuration properties.
 		Map configProps = loadConfigProperties();
 
+		
+		
 		// If no configuration properties were found, then create
 		// an empty properties object.
 		if (configProps == null)
@@ -92,6 +94,8 @@ public class DistributionFrameworkFactory implements FrameworkFactory {
 		copySystemProperties(configProps);
 		configProps.putAll(configuration);
 		configProps.put("felix.auto.deploy.action", "install, start");
+		configProps.put("felix.fileinstall.noInitialDelay", "true");
+		configProps.put("felix.fileinstall.poll", "500");	
 		try {
 			configProps.put("felix.fileinstall.dir", getLoadFolder());
 		} catch (IOException e1) {
