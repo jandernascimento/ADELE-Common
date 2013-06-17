@@ -33,8 +33,8 @@
       <osgiDistribPlugin>1.0.1-SNAPSHOT</osgiDistribPlugin>
       <!-- Common dependencies -->
       <!-- iPOJO -->
-      <iPojoVersion>1.10.1-SNAPSHOT</iPojoVersion>
-      <iPojoAPIVersion>1.10.0</iPojoAPIVersion>
+      <iPojoVersion>1.10.1</iPojoVersion>
+      <iPojoAPIVersion>1.10.1</iPojoAPIVersion>
       <iPojoMetadataVersion>1.6.0</iPojoMetadataVersion>
       <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
       <iPojoArchVersion>${iPojoVersion}</iPojoArchVersion>
