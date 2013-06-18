@@ -78,7 +78,7 @@
       <testngVersion>6.1.1</testngVersion>
       <!-- plugins -->
       <bundlePluginVersion>2.3.7</bundlePluginVersion>
-      <iPojoPluginVersion>1.10.0</iPojoPluginVersion>
+      <iPojoPluginVersion>1.10.1</iPojoPluginVersion>
       <releasePluginVersion>2.3.2</releasePluginVersion>
       <surefirePluginVersion>2.12</surefirePluginVersion>
       <webdavPluginVersion>2.2</webdavPluginVersion>
