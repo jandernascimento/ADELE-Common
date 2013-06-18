@@ -34,7 +34,7 @@
       <!-- Common dependencies -->
       <!-- iPOJO -->
       <iPojoVersion>1.10.1</iPojoVersion>
-      <iPojoAPIVersion>1.10.1</iPojoAPIVersion>
+      <iPojoAPIVersion>${iPojoVersion}</iPojoAPIVersion>
       <iPojoMetadataVersion>1.6.0</iPojoMetadataVersion>
       <ipojoHandlerExtender>1.4.0</ipojoHandlerExtender>
       <iPojoArchVersion>${iPojoVersion}</iPojoArchVersion>
@@ -78,7 +78,7 @@
       <testngVersion>6.1.1</testngVersion>
       <!-- plugins -->
       <bundlePluginVersion>2.3.7</bundlePluginVersion>
-      <iPojoPluginVersion>1.10.1</iPojoPluginVersion>
+      <iPojoPluginVersion>${iPojoVersion}</iPojoPluginVersion>
       <releasePluginVersion>2.3.2</releasePluginVersion>
       <surefirePluginVersion>2.12</surefirePluginVersion>
       <webdavPluginVersion>2.2</webdavPluginVersion>
