@@ -99,8 +99,49 @@ public abstract class AbstractDistributionBaseTest {
 	 * @throws IllegalStateException when the stability can't be reach after a several attempts.
 	 */
 	protected void waitForStability(BundleContext context) throws IllegalStateException {
-        //Bundles and service stability is handled by the Framework.
-        waitForiPojoFactoriesStability(context);
+		// Wait for bundle initialization.
+		boolean bundleStability = getBundleStability(context);
+		int count = 0;
+		while (!bundleStability && count < 500) {
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e) {
+				// Interrupted
+			}
+			count++;
+			bundleStability = getBundleStability(context);
+		}
+
+		if (count == 500) {
+			System.err.println("Bundle stability isn't reached after 500 tries");
+			throw new IllegalStateException("Cannot reach the bundle stability");
+		}
+
+		boolean serviceStability = false;
+		count = 0;
+		int count1 = 0;
+		int count2 = 0;
+		while (! serviceStability && count < 500) {
+			try {
+				ServiceReference[] refs = context.getServiceReferences((String) null, null);
+				count1 = refs.length;
+				Thread.sleep(500);
+				refs = context.getServiceReferences((String) null, null);
+				count2 = refs.length;
+				serviceStability = count1 == count2;
+			} catch (Exception e) {
+				System.err.println(e);
+				serviceStability = false;
+				// Nothing to do, while recheck the condition
+			}
+			count++;
+		}
+
+		if (count == 500) {
+			System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
+			showUnstableBundles(context);
+			throw new IllegalStateException("Cannot reach the service stability");
+		}
 	}
 
 	/**
@@ -114,6 +155,7 @@ public abstract class AbstractDistributionBaseTest {
 	 * @throws IllegalStateException when the stability can't be reach after a several attempts.
 	 */
 	protected void waitForiPojoFactoriesStability(BundleContext context) throws IllegalStateException {
+
 
 		int count = 0;
 		boolean serviceStability = false;
@@ -135,20 +177,41 @@ public abstract class AbstractDistributionBaseTest {
 			count++;
 		}
 
-		if (count >= 500) {
+		if (count == 500) {
 			System.err.println("Service stability isn't reached after 500 tries (" + count1 + " != " + count2);
 			throw new IllegalStateException("Cannot reach the service stability");
 		}
 	}
 
-
-    protected Object getService(BundleContext context, Class clazz){
-        ServiceReference sr = context.getServiceReference(clazz.getName());
-
-        if (sr == null){
-            return null;
-        }
-        Object service = context.getService(sr);
-        return service;
-    }
+	/**
+	 * Are bundle stables.
+	 * @param bc the bundle context
+	 * @return <code>true</code> if every bundles are activated.
+	 */
+	private boolean getBundleStability(BundleContext bc) {
+		boolean stability = true;
+		Bundle[] bundles = bc.getBundles();
+		for (int i = 0; i < bundles.length; i++) {
+			int state = bundles[i].getState();
+			stability = stability && ((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED));
+		}
+		return stability;
+	}
+	/**
+	 * Are bundle stables.
+	 * @param bc the bundle context
+	 * @return <code>true</code> if every bundles are activated.
+	 */
+	private boolean showUnstableBundles(BundleContext bc) {
+		boolean stability = true;
+		Bundle[] bundles = bc.getBundles();
+		for (int i = 0; i < bundles.length; i++) {
+			int state = bundles[i].getState();
+			stability = stability && ((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED));
+			if (!((state == Bundle.ACTIVE) || (state == Bundle.RESOLVED))){
+				System.err.println("Waiting to stability for: " + bundles[i].getSymbolicName());
+			} 
+		}
+		return stability;
+	}
 }

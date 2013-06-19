@@ -40,6 +40,10 @@
      </dependency>
 
      <dependency>
+        <groupId>org.ow2.chameleon.handies</groupId>
+        <artifactId>ipojo-log-handler</artifactId>
+     </dependency>
+     <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.configadmin</artifactId>
      </dependency>
@@ -49,17 +53,10 @@
         <artifactId>org.apache.felix.http.whiteboard</artifactId>
      </dependency>
      <dependency>
-        <groupId>org.ow2.chameleon.json</groupId>
-        <artifactId>json-service-json.org</artifactId>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.ipojo.api</artifactId>
      </dependency>
-     <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-     </dependency>
-     <dependency>
-        <groupId>com.google.guava</groupId>
-        <artifactId>guava</artifactId>
-     </dependency>
+     
      <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.ipojo.composite</artifactId>
@@ -72,7 +69,12 @@
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.ipojo.webconsole</artifactId>
      </dependency>
-    
+     
+     <dependency>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>org.apache.felix.ipojo.annotations</artifactId>
+     </dependency>
+     
      <dependency>
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.prefs</artifactId>
@@ -85,21 +87,6 @@
         <groupId>org.apache.felix</groupId>
         <artifactId>org.apache.felix.webconsole</artifactId>
      </dependency>
-	 <dependency>
-		<groupId>org.apache.felix</groupId>
-		<artifactId>org.apache.felix.eventadmin</artifactId>
-     </dependency>	 
-	 
-	 
-	<!-- Shared Preferences Bundles-->
-	<dependency>
-		<groupId>org.ow2.chameleon.sharedprefs</groupId>
-		<artifactId>shared-preferences-service</artifactId>
-	</dependency>
-	<dependency>
-		<groupId>org.ow2.chameleon.sharedprefs</groupId>
-		<artifactId>xml-shared-preferences</artifactId>	
-	</dependency>
      
      
      <dependency>

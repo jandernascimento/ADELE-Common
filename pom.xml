@@ -36,6 +36,7 @@
          <modules>
             <module>base</module>
             <module>deployment-package-extensions</module>
+            <module>packages</module>
             <module>distribution</module>
             <module>tests</module>
          </modules>
@@ -45,6 +46,7 @@
          <modules>
             <module>base</module>
             <module>deployment-package-extensions</module>
+            <module>packages</module>
             <module>distribution</module>
          </modules>
       </profile>
